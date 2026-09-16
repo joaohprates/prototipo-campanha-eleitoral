@@ -4,14 +4,22 @@
   function date(value){return value?value.split('-').reverse().join('/'):'Não informado na fonte consultada';}
   function number(value,suffix){return value==null?'Não informado na fonte consultada':value.toLocaleString('pt-BR')+(suffix||'');}
   SIE.registerView('pesquisas',{render:function(container){
-    var filters={office:'all',institute:'all',uf:'all',round:'all',search:'',sort:'newest'};
+    var selectedTerritory = SIE.territory();
+    var territoryPolls = D.polls.filter(function(p){return p.uf===selectedTerritory.code;});
+    var catalog = selectedTerritory.code==='BR' ? D.polls : territoryPolls;
+    var catalogInstitutes = Array.from(new Set(catalog.map(function(p){return p.institute;})));
+    var scopes={};
+    D.polls.forEach(function(p){scopes[p.uf]=p.region;});
+    scopes[selectedTerritory.code]=selectedTerritory.name;
+    var scopeOptions=Object.keys(scopes).sort(function(a,b){return scopes[a].localeCompare(scopes[b],'pt-BR');}).map(function(code){return '<option value="'+esc(code)+'">'+esc(scopes[code])+(code==='BR'?' · nacional':'')+'</option>';}).join('');
+    var filters={office:'all',institute:'all',uf:selectedTerritory.code,round:'all',search:'',sort:'newest'};
     container.innerHTML=`
       <div class="view-head"><div class="view-kicker">MÓDULO 08 · PESQUISAS PUBLICADAS</div><h1 class="view-title">Central de Pesquisas</h1><p class="view-sub">Consulte cada levantamento por instituto, cargo e abrangência. Resultados publicados, cenários separados e fontes para conferência.</p></div>
-      <div class="poll-summary"><div><span class="tag pos">CURADORIA DE FONTES</span><h2>As pesquisas, uma a uma.</h2><p>Catálogo revisado em <strong>${date(D.reviewed)}</strong>. Atualização editorial, sem sincronização automática com os institutos. Este recorte não é um catálogo exaustivo.</p></div><div class="poll-summary-count"><strong>${D.polls.length}</strong><span>levantamentos<br>${D.institutes.length} institutos</span></div></div>
+      <div class="poll-summary"><div><span class="tag pos">CURADORIA DE FONTES</span><h2>As pesquisas, uma a uma.</h2><p>Catálogo revisado em <strong>${date(D.reviewed)}</strong>. Escopo ativo: <strong>${esc(selectedTerritory.name)}</strong>. Atualização editorial, sem sincronização automática com os institutos.</p></div><div class="poll-summary-count"><strong>${catalog.length}</strong><span>levantamento${catalog.length===1?'':'s'}<br>${catalogInstitutes.length} instituto${catalogInstitutes.length===1?'':'s'}</span></div></div>
       <div class="poll-tabs" role="group" aria-label="Filtrar pesquisas por cargo">${Object.keys(D.offices).map(function(key){return '<button type="button" data-office="'+key+'" aria-pressed="'+(key==='all')+'">'+D.offices[key]+'</button>';}).join('')}</div>
       <form class="poll-filters" aria-label="Filtros de pesquisas">
-        <label>Instituto<select name="institute"><option value="all">Todos os institutos</option>${D.institutes.map(function(i){return '<option>'+i+'</option>';}).join('')}</select></label>
-        <label>Abrangência<select name="uf"><option value="all">Todas as abrangências</option><option value="BR">Brasil · nacional</option><option value="PR">Paraná</option><option value="MG">Minas Gerais</option></select></label>
+        <label>Instituto<select name="institute"><option value="all">Todos os institutos</option>${catalogInstitutes.map(function(i){return '<option>'+esc(i)+'</option>';}).join('')}</select></label>
+        <label>Abrangência<select name="uf"><option value="all">Todas as abrangências</option>${scopeOptions}</select></label>
         <label>Turno<select name="round"><option value="all">Todos os turnos</option><option value="1">1º turno</option><option value="2">2º turno</option><option value="unico">Turno único · Senado</option></select></label>
         <label>Ordenação<select name="sort"><option value="newest">Mais recentes primeiro</option><option value="oldest">Mais antigas primeiro</option></select></label>
         <label class="poll-search">Buscar<input name="search" type="search" placeholder="Candidato, instituto ou registro" autocomplete="off"></label>
@@ -29,16 +37,16 @@
       '<div class="poll-facts"><div><span>Campo</span><strong>'+date(p.start)+' a '+date(p.end)+'</strong></div><div><span>Amostra</span><strong>'+number(p.sample)+' entrevistas</strong></div><div><span>Margem de erro</span><strong>± '+number(p.margin,' p.p.')+'</strong></div><div><span>Registro informado pela fonte</span><strong>'+esc(p.registration || 'Não transcrito')+'</strong></div></div>'+
       (scenarios.length?'<div class="poll-scenarios">'+scenarios.map(function(s,i){return panel(p,s,i);}).join('')+'</div>':'<div class="poll-partial"><strong>Relatório disponível no instituto</strong><p>'+esc(p.note)+'</p></div>')+
       '<details class="poll-method"><summary>Ficha técnica e procedência</summary><dl><div><dt>Nível de confiança</dt><dd>'+number(p.confidence,'%')+'</dd></div><div><dt>Método de coleta</dt><dd>'+esc(p.method || 'Não transcrito da fonte consultada')+'</dd></div><div><dt>Contratante</dt><dd>'+esc(p.sponsor || 'Não informado na página consultada')+'</dd></div><div><dt>Revisão do catálogo</dt><dd>'+date(D.reviewed)+'</dd></div></dl><p class="poll-small">Registro reproduzido da fonte indicada, sem verificação independente no PesqEle. A seleção acima não inclui necessariamente todos os cenários da publicação.</p></details>'+
-      '<footer class="poll-card-foot"><span>Fonte: '+esc(p.sourceName)+'</span><a class="action-button" href="'+esc(p.source)+'" target="_blank" rel="noopener noreferrer">Consultar publicação ↗</a></footer></article>';
+      '<footer class="poll-card-foot"><span>Fonte: '+esc(p.sourceName)+'</span>'+(p.mock?'<span class="tag orange">DADO SINTÉTICO</span>':'<a class="action-button" href="'+esc(p.source)+'" target="_blank" rel="noopener noreferrer">Consultar publicação ↗</a>')+'</footer></article>';
     }
     function paint(){
-      var result=D.select(filters);
-      container.querySelector('#poll-count').textContent=result.length+' de '+D.polls.length+' pesquisas · '+D.offices[filters.office];
-      list.innerHTML=result.length?result.map(card).join(''):'<div class="panel poll-empty"><span aria-hidden="true">◎</span><h2>Nenhuma pesquisa cadastrada neste recorte</h2><p>Não há levantamento no catálogo para a combinação selecionada. Tente outro cargo, instituto ou abrangência.</p><button type="button" class="action-button" id="poll-empty-reset">Limpar filtros</button></div>';
+      var result=D.selectFrom(catalog,filters);
+      container.querySelector('#poll-count').textContent=result.length+' de '+catalog.length+' pesquisa'+(catalog.length===1?'':'s')+' · '+D.offices[filters.office]+' · '+selectedTerritory.name;
+      list.innerHTML=result.length?result.map(card).join(''):'<div class="panel poll-empty"><span aria-hidden="true">◎</span><h2>Nenhuma pesquisa cadastrada para '+esc(selectedTerritory.name)+'</h2><p>O catálogo atual não possui levantamento cadastrado para este território. Isso não significa ausência de pesquisas publicadas; significa apenas que ainda não foram incluídas nesta curadoria.</p><button type="button" class="action-button" id="poll-empty-reset">Limpar filtros</button></div>';
       container.querySelectorAll('[data-office]').forEach(function(button){button.setAttribute('aria-pressed',String(button.dataset.office===filters.office));});
       var reset=container.querySelector('#poll-empty-reset');if(reset)reset.addEventListener('click',clear);
     }
-    function clear(){filters={office:'all',institute:'all',uf:'all',round:'all',search:'',sort:'newest'};container.querySelectorAll('select,input').forEach(function(el){el.value=filters[el.name];});paint();}
+    function clear(){filters={office:'all',institute:'all',uf:selectedTerritory.code,round:'all',search:'',sort:'newest'};container.querySelectorAll('select,input').forEach(function(el){if(el.name)el.value=filters[el.name] || (el.name==='uf'?selectedTerritory.code:'');});paint();}
     container.querySelectorAll('[data-office]').forEach(function(button){button.addEventListener('click',function(){filters.office=button.dataset.office;paint();});});
     container.querySelector('form').addEventListener('submit',function(e){e.preventDefault();});
     container.querySelector('form').addEventListener('reset',function(e){e.preventDefault();clear();});

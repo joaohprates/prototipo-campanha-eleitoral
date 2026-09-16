@@ -107,8 +107,18 @@
   }
 
   function serieDe(lente) {
+    var meta = D.meta || { name: 'Paraná', code: 'PR' };
+    if (meta.code !== 'PR') {
+      return {
+        name: meta.name, type: 'bar',
+        barWidth: 18,
+        itemStyle: { color: C.cyan, borderRadius: [3, 3, 0, 0] },
+        emphasis: { itemStyle: { color: C.accent } },
+        data: Object.keys(D.mapaAncoras).map(function (nome) { return { name: nome, value: valorDe(nome, lente) }; })
+      };
+    }
     return {
-      name: 'Paraná', type: 'map', map: 'parana',
+      name: meta.name, type: 'map', map: 'parana',
       roam: true, scaleLimit: { min: 0.9, max: 8 },
       top: 10, bottom: 46, left: 16, right: 16,
       itemStyle: { areaColor: '#EDF0F4', borderColor: '#FFFFFF', borderWidth: 0.8 },
@@ -172,6 +182,8 @@
 
   // ---------- render ----------
   function render(container) {
+    var meta = D.meta || { name: 'Paraná', code: 'PR', regiao: 'Paraná' };
+    var isMap = meta.code === 'PR';
     var segBtns = D.mapaLentes.map(function (l) {
       return '<button class="mp-seg-btn' + (l.id === lenteAtual ? ' active' : '') +
         '" data-lente="' + l.id + '">' + LENTES[l.id].curto + '</button>';
@@ -231,13 +243,13 @@
         '</style>' +
         '<div class="view-kicker">MÓDULO 03 · GEORREFERENCIAMENTO</div>' +
         '<div class="view-title">Mapa de Calor Eleitoral</div>' +
-        '<div class="view-sub">Explore a visualização geográfica do Paraná e seus detalhamentos territoriais.</div>' +
+        '<div class="view-sub">Explore a leitura territorial de ' + meta.name + ' e seus recortes prioritários.</div>' +
       '</div>' +
 
       '<div class="grid cols-3 reveal">' +
         '<div class="panel span-2">' +
           '<div class="panel-head">' +
-            '<div class="panel-title">Mancha territorial — Paraná</div>' +
+            '<div class="panel-title">' + (isMap ? 'Mancha territorial' : 'Leitura territorial') + ' — ' + meta.name + '</div>' +
             '<div class="panel-meta">' + F.int(D.kpis.municipios) + ' MUNICÍPIOS · ' + F.int(D.kpis.municipiosAtivos) + ' NA BASE DEMONSTRATIVA</div>' +
           '</div>' +
           '<div class="mp-lens-row">' +
@@ -267,8 +279,8 @@
 
       '<div class="panel reveal" style="margin-top:16px">' +
         '<div class="panel-head">' +
-          '<div class="panel-title">Curitiba — bairro a bairro</div>' +
-          '<div class="panel-meta">DRILL-DOWN DEMONSTRATIVO · ' + F.int(D.bairrosCuritiba.length) + ' BAIRROS · JANELA 7D</div>' +
+          '<div class="panel-title">' + (isMap ? 'Curitiba — bairro a bairro' : 'Recortes prioritários — ' + meta.name) + '</div>' +
+          '<div class="panel-meta">' + (isMap ? 'DRILL-DOWN DEMONSTRATIVO · ' : 'LEITURA COMPARATIVA · ') + F.int(D.bairrosCuritiba.length) + ' RECORTES · JANELA 7D</div>' +
         '</div>' +
         '<div class="mp-drill">' +
           '<div class="mp-bairros">' + bairrosHtml + '</div>' +
@@ -288,11 +300,14 @@
       '</div>';
 
     // ---------- gráfico principal ----------
-    mapInst = SIE.chart(container.querySelector('#mp-map'), {
+    var mapOption = {
       tooltip: { trigger: 'item', formatter: ttFormatter },
-      visualMap: vmDe(lenteAtual),
+      visualMap: isMap ? vmDe(lenteAtual) : { show: false },
+      xAxis: isMap ? undefined : { type: 'category', data: Object.keys(D.mapaAncoras), axisLabel: { interval: 0, rotate: 35, color: C.textLow, fontSize: 10 } },
+      yAxis: isMap ? undefined : { type: 'value', min: 0, max: 100, axisLabel: { color: C.textLow, fontFamily: SIE.fonts.mono } },
       series: [serieDe(lenteAtual)]
-    }, 'mapa');
+    };
+    mapInst = SIE.chart(container.querySelector('#mp-map'), mapOption, 'mapa');
 
     // estado inicial (tabela, descrição da lente)
     setLente(lenteAtual, container);

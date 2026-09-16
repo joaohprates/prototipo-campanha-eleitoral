@@ -15,6 +15,7 @@
 
   function render(container) {
     var k = D.kpis;
+    var meta = D.meta || { name: 'Paraná', regiao: 'Paraná' };
     var cobertura = Math.round(k.municipiosAtivos / k.municipios * 1000) / 10; // 93,0
     var maxProj = Math.max.apply(null, D.candidatos.map(function (c) { return c.proj; }));
 
@@ -51,10 +52,10 @@
         </style>
         <div class="view-kicker">MÓDULO 01 · COLETA CONTÍNUA</div>
         <div class="view-title">Centro de Comando</div>
-        <div class="view-sub">Uma visão integrada: indicadores, séries históricas e contexto territorial do Paraná.</div>
+        <div class="view-sub">Uma visão integrada: indicadores, séries históricas e contexto territorial de ${meta.name}.</div>
       </div>
 
-      <div class="hero-calendar"><div><div class="eyebrow">PARANÁ / CICLO ELEITORAL 2026</div><h2>O contexto completo, em um só lugar.</h2><p>Primeiro turno em 4 de outubro · calendário oficial do TSE.</p><a href="#fontes">Consultar fontes e calendário ↗</a></div><div class="calendar-date"><strong>04</strong><span>OUTUBRO<br>2026</span></div></div>
+      <div class="hero-calendar"><div><div class="eyebrow">${meta.name.toUpperCase()} / CICLO ELEITORAL 2026</div><h2>O contexto completo, em um só lugar.</h2><p>Primeiro turno em 4 de outubro · calendário oficial do TSE.</p><a href="#fontes">Consultar fontes e calendário ↗</a></div><div class="calendar-date"><strong>04</strong><span>OUTUBRO<br>2026</span></div></div>
       <!-- linha 1: KPIs -->
       <div class="grid cols-4 ov-row reveal">
         <div class="panel ov-kpi">

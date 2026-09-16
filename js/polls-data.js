@@ -17,12 +17,23 @@ window.SIE_POLLS = (function () {
       scenario('2º turno · Moro × Sandro Alex','2',[['Sergio Moro',43],['Sandro Alex',36],['Nulo/branco',10],['Não sabe/não respondeu',11]])]},
     {id:'datafolha-mg-20260911',institute:'Datafolha',office:'senador',region:'Minas Gerais',uf:'MG',published:'2026-09-11',start:'2026-09-08',end:'2026-09-10',sample:1204,margin:3,confidence:95,registration:'MG-01611/2026',method:null,sponsor:'Globo e Folha de S.Paulo',sourceName:'Exame',source:'https://exame.com/brasil/datafolha-para-senador-em-minas-marilia-viana-aecio-savio-e-aro-empatam-tecnicamente/',scenarios:[
       scenario('Senado · estimulada · total para as duas vagas','unico',[['Marília Campos',12],['Carlos Viana',10],['Aécio Neves',10],['Domingos Sávio',8],['Marcelo Aro',6],['Áurea Carolina',3],['Ana Luiza do MLB',2],['Marco Antônio Superman',2],['Victória Mello Vic',2],['Arcanjo Pimenta',1],['Manoel Carvalho',1],['Juiz Ramon Moreira',1],['Carlin Moura',1],['Fidélis Alcântara',1],['Tião Pessoa',1],['Jordano Metalúrgico',0],['Indecisos',20],['Branco/nulo/nenhum',18]],'A fonte apresenta o total para as duas vagas. Não equivale a um cenário presidencial nem a uma disputa de segundo turno. Valores mantidos como publicados.')]},
+    {id:'datafolha-sp-20260911',institute:'Datafolha',office:'governador',region:'São Paulo',uf:'SP',published:'2026-09-11',start:'2026-09-08',end:'2026-09-10',sample:1610,margin:2,confidence:95,registration:'SP-04189/2026 · BR-03904/2026',method:null,sponsor:'Folha de S.Paulo e TV Globo',sourceName:'Folha de S.Paulo',source:'https://www1.folha.uol.com.br/poder/2026/09/datafolha-tarcisio-lidera-em-sp-contra-haddad-e-poderia-vencer-disputa-em-primeiro-turno.shtml',scenarios:[
+      scenario('1º turno · estimulada','1',[['Tarcísio de Freitas',49],['Fernando Haddad',29],['Carlos Machado',3],['Policial Edjane',3],['Vera Lúcia',2],['Vivian Mendes',2],['Izadora Dias',1],['Brancos/nulos/nenhum',8],['Indecisos',3]])]},
+    {id:'realtime-sp-20260914',institute:'Real Time Big Data',office:'governador',region:'São Paulo',uf:'SP',published:'2026-09-14',start:'2026-09-09',end:'2026-09-12',sample:2000,margin:2,confidence:95,registration:'SP-02794/2026',method:null,sponsor:'Real Time Big Data',sourceName:'TMC',source:'https://tmc.com.br/eleicoes/2026/pesquisa/governador/sp/?tmc_inst=real-time-big-data',scenarios:[
+      scenario('1º turno · cenário 1 · estimulada','1',[['Tarcísio de Freitas',53],['Fernando Haddad',36],['Outros candidatos',2],['Brancos e nulos',5],['Indecisos',4]]),
+      scenario('2º turno · Tarcísio de Freitas × Fernando Haddad','2',[['Tarcísio de Freitas',57],['Fernando Haddad',38],['Brancos e nulos',3],['Indecisos',2]])]},
+    {id:'atlas-sp-20260903',institute:'AtlasIntel',office:'governador',region:'São Paulo',uf:'SP',published:'2026-09-03',start:'2026-08-26',end:'2026-08-31',sample:1810,margin:1,confidence:95,registration:'SP-06964/2026',method:'Recrutamento digital aleatório',sponsor:'AtlasIntel',sourceName:'AtlasIntel / Estadão',source:'https://atlasintel.org/polls/exclusive-polls',scenarios:[
+      scenario('1º turno · estimulada','1',[['Tarcísio de Freitas',51.1],['Fernando Haddad',39.9],['Carlos Machado',1.3],['Vera Lúcia',1],['Vivian Mendes',1],['Policial Edjane',0.2],['Não sabe',3.6],['Branco/nulo',1.9]]),
+      scenario('2º turno · Tarcísio de Freitas × Fernando Haddad','2',[['Tarcísio de Freitas',53.2],['Fernando Haddad',42.6],['Branco/nulo',2.7],['Não sabe',1.5]])]},
+    {id:'quaest-sp-20260729',institute:'Quaest',office:'governador',region:'São Paulo',uf:'SP',published:'2026-07-29',start:'2026-07-23',end:'2026-07-27',sample:1650,margin:2,confidence:95,registration:'SP-04846/2026',method:'Entrevistas presenciais',sponsor:'Genial Investimentos',sourceName:'Quaest',source:'https://quaest.com.br/pesquisa-genial-quaest-eleicoes-em-sao-paulo-e-bahia/',scenarios:[
+      scenario('1º turno · estimulada','1',[['Tarcísio de Freitas',41],['Fernando Haddad',26],['Vera Lúcia',3],['Carlos Machado',1],['Vivian Mendes',1],['Brancos/nulos/não vai votar',15],['Indecisos',13]]),
+      scenario('2º turno · Tarcísio de Freitas × Fernando Haddad','2',[['Tarcísio de Freitas',48],['Fernando Haddad',32],['Brancos/nulos/não vai votar',11],['Indecisos',9]])]},
     {id:'atlas-br-20260910',institute:'AtlasIntel',office:'presidente',region:'Brasil',uf:'BR',published:'2026-09-10',start:'2026-09-04',end:'2026-09-09',sample:5000,margin:1,confidence:null,registration:null,method:null,sponsor:null,sourceName:'AtlasIntel · publicação do instituto',source:'https://atlasintel.org/poll/brazil-national-2026-09-10',scenarios:[],announcedRounds:['1','2'],note:'Publicação e ficha resumida conferidas no site do instituto. Resultados e registro ainda não transcritos: consulte o relatório original. Não há percentuais estimados neste cartão.'}
   ];
   function normalize(s){return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();}
-  function select(filters) {
+  function selectFrom(source, filters) {
     filters=filters || {};
-    return polls.filter(function(p){
+    return (source || polls).filter(function(p){
       return (!filters.office || filters.office==='all' || filters.office===p.office)
         && (!filters.institute || filters.institute==='all' || filters.institute===p.institute)
         && (!filters.uf || filters.uf==='all' || filters.uf===p.uf)
@@ -30,5 +41,5 @@ window.SIE_POLLS = (function () {
         && normalize([p.institute,p.region,offices[p.office],p.registration,p.scenarios.map(function(s){return s.results.map(function(r){return r.name;}).join(' ');}).join(' ')].join(' ')).includes(normalize(filters.search).trim());
     }).sort(function(a,b){return filters.sort==='oldest' ? a.published.localeCompare(b.published) : b.published.localeCompare(a.published);});
   }
-  return {reviewed:'2026-09-15',offices:offices,institutes:institutes,polls:polls,select:select};
+  return {reviewed:'2026-09-15',offices:offices,institutes:institutes,polls:polls,select:function(filters){return selectFrom(polls,filters);},selectFrom:selectFrom};
 })();

@@ -24,7 +24,7 @@
       <div class="brand-sub">Inteligência Eleitoral</div>
     </div>
 
-    <div class="workspace-label">WORKSPACE / PARANÁ</div>
+    <div class="workspace-label" id="workspace-label">WORKSPACE / PARANÁ</div>
     <nav class="nav" id="nav" aria-label="Módulos">
       <a class="nav-item" href="#overview" data-view="overview">
         <span class="nav-index">01</span><span class="nav-label">Centro de Comando</span>
@@ -53,11 +53,23 @@
   <!-- ===== TOPBAR ===== -->
   <header class="topbar">
     <button class="menu-toggle" id="menu-toggle" aria-controls="sidebar" aria-expanded="false" aria-label="Abrir menu">☰</button>
-    <div class="ctx">Paraná <span class="sep">/</span> <span class="cycle">Eleições 2026</span></div>
+    <div class="ctx"><span id="context-location">Paraná</span> <span class="sep">/</span> <span class="cycle">Eleições 2026</span></div>
     <div class="topbar-spacer"></div>
     <a class="topbar-help" href="#fontes">Fontes e metodologia ↗</a>
     <span class="live-badge">Fontes públicas</span>
-    <span class="avatar" aria-label="Workspace Paraná">PR</span>
+    <div class="territory-picker" id="territory-picker">
+      <button class="territory-trigger" id="territory-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="territory-menu">
+        <span class="territory-trigger-copy"><small>Território</small><strong id="territory-code">PR</strong></span>
+        <span class="territory-chevron" aria-hidden="true">⌄</span>
+      </button>
+      <div class="territory-menu" id="territory-menu" role="listbox" aria-label="Escolher território">
+        <div class="territory-menu-head"><span>Escopo da leitura</span><span class="territory-menu-hint">Interface</span></div>
+        <label class="territory-search-label" for="territory-search">Buscar estado ou país</label>
+        <input class="territory-search" id="territory-search" type="search" placeholder="Ex.: São Paulo" autocomplete="off">
+        <div class="territory-options" id="territory-options"></div>
+        <p class="territory-note">Os módulos analíticos deste protótipo usam a base demonstrativa do Paraná.</p>
+      </div>
+    </div>
   </header>
 
   <!-- ===== MAIN ===== -->

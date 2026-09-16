@@ -15,35 +15,35 @@ window.SIE = (function () {
 
   // chart-1..5 do AIME: primary / accent / success / warning / info (+ error)
   var THEME = {
-    color: ['#1C4B6A', '#45AEAA', '#3FB950', '#D29922', '#58A6FF', '#F85149'],
+    color: ['#005BAA', '#07884F', '#07884F', '#FFCB05', '#0072BC', '#BA3436'],
     backgroundColor: 'transparent',
-    textStyle: { color: '#4B5563', fontFamily: FONT_DISPLAY, fontSize: 12 },
+    textStyle: { color: '#444B4C', fontFamily: FONT_DISPLAY, fontSize: 12 },
     axisPointer: {
-      lineStyle: { color: 'rgba(28,75,106,0.35)' },
-      label: { backgroundColor: '#1C4B6A', color: '#FFFFFF', fontFamily: FONT_MONO }
+      lineStyle: { color: 'rgba(0,91,170,0.35)' },
+      label: { backgroundColor: '#005BAA', color: '#FFFFFF', fontFamily: FONT_MONO }
     },
     categoryAxis: {
-      axisLine: { lineStyle: { color: '#ECEFF3' } },
+      axisLine: { lineStyle: { color: '#E5E8E3' } },
       axisTick: { show: false },
-      axisLabel: { color: '#6B7280', fontFamily: FONT_MONO, fontSize: 12 },
+      axisLabel: { color: '#626C70', fontFamily: FONT_MONO, fontSize: 12 },
       splitLine: { show: false }
     },
     valueAxis: {
       axisLine: { show: false },
       axisTick: { show: false },
-      axisLabel: { color: '#6B7280', fontFamily: FONT_MONO, fontSize: 12 },
-      splitLine: { lineStyle: { color: '#ECEFF3' } }
+      axisLabel: { color: '#626C70', fontFamily: FONT_MONO, fontSize: 12 },
+      splitLine: { lineStyle: { color: '#E5E8E3' } }
     },
     legend: {
-      textStyle: { color: '#4B5563', fontFamily: FONT_DISPLAY, fontSize: 12 },
+      textStyle: { color: '#444B4C', fontFamily: FONT_DISPLAY, fontSize: 12 },
       icon: 'rect', itemWidth: 10, itemHeight: 3
     },
     tooltip: {
       backgroundColor: '#FFFFFF',
-      borderColor: '#ECEFF3',
+      borderColor: '#E5E8E3',
       borderWidth: 1,
-      textStyle: { color: '#1F2937', fontFamily: FONT_DISPLAY, fontSize: 14 },
-      extraCssText: 'box-shadow: 0 4px 12px rgba(28,73,108,0.10), 0 12px 32px rgba(28,73,108,0.12); border-radius: 8px;'
+      textStyle: { color: '#17191C', fontFamily: FONT_DISPLAY, fontSize: 14 },
+      extraCssText: 'box-shadow: 0 4px 12px rgba(0,91,170,0.10), 0 12px 32px rgba(0,91,170,0.12); border-radius: 8px;'
     }
   };
   echarts.registerTheme('sie', THEME);
@@ -56,7 +56,13 @@ window.SIE = (function () {
   // ---------- helpers ----------
   function chart(el, option, viewId) {
     var inst = echarts.init(el, 'sie', { renderer: 'canvas' });
+    option.animation = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!option.animation && option.series) option.series.forEach(function (s) { if (s.type === 'effectScatter') s.type = 'scatter'; });
     inst.setOption(option);
+    el.setAttribute('role', 'img');
+    var panel = el.closest('.panel');
+    var label = panel && panel.querySelector('.panel-title');
+    el.setAttribute('aria-label', label ? label.textContent : 'Gráfico');
     if (viewId) {
       (charts[viewId] = charts[viewId] || []).push(inst);
     }
@@ -82,7 +88,7 @@ window.SIE = (function () {
   // contador animado (para KPIs)
   function animateCount(el, target, opts) {
     opts = opts || {};
-    var dur = opts.dur || 1100;
+    var dur = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 1 : (opts.dur || 1100);
     var dec = opts.dec || 0;
     var suffix = opts.suffix || '';
     var compact = opts.compact;
@@ -101,11 +107,25 @@ window.SIE = (function () {
 
   // ---------- navegação ----------
   function activate(id) {
+    if (!views[id]) { location.replace('#overview'); return; }
+    document.body.classList.remove('menu-open');
+    document.getElementById('menu-toggle').setAttribute('aria-expanded', 'false');
     if (activeView === id) return;
     activeView = id;
+    var published = id === 'pesquisas';
+    document.querySelector('.context-strip').innerHTML = published
+      ? '<span><i></i> Pesquisas publicadas · Brasil e estados</span><span>Catálogo revisado em 15 set 2026</span>'
+      : '<span><i></i> Referências públicas</span><span>Revisadas em 15 set 2026</span>';
+    document.querySelector('.live-badge').textContent = 'Fontes públicas';
+    document.querySelector('.footer-note').textContent = published ? 'Pesquisas publicadas · curadoria manual · sem atualização automática' : 'Curadoria manual · sem atualização automática';
+    document.querySelector('.ticker-label').textContent = published ? 'SIE / PESQUISAS' : 'SIE / PAINEL';
+    document.querySelector('.ctx').innerHTML = (published ? 'Brasil e estados' : 'Paraná') + ' <span class="sep">/</span> <span class="cycle">Eleições 2026</span>';
+
 
     document.querySelectorAll('.nav-item').forEach(function (n) {
       n.classList.toggle('active', n.dataset.view === id);
+      if (n.dataset.view === id) n.setAttribute('aria-current', 'page');
+      else n.removeAttribute('aria-current');
     });
     document.querySelectorAll('.view').forEach(function (v) {
       v.classList.toggle('active', v.dataset.view === id);
@@ -114,43 +134,53 @@ window.SIE = (function () {
     var def = views[id];
     var container = document.getElementById('view-' + id);
     if (def && !def.rendered) {
-      def.rendered = true;
       def.render(container);
+      def.rendered = true;
+      var heading = container.querySelector('.view-title');
+      if (heading && heading.tagName !== 'H1') {
+        var h = document.createElement('h1'); h.className = heading.className; h.textContent = heading.textContent; heading.replaceWith(h);
+      }
     }
     // gráficos escondidos têm tamanho 0 — redimensiona ao exibir
     requestAnimationFrame(function () {
       (charts[id] || []).forEach(function (c) { c.resize(); });
     });
     document.getElementById('main').scrollTop = 0;
+    var title = container.querySelector('.view-title');
+    document.title = 'SIE — ' + (title ? title.textContent : 'Centro de Comando');
+    if (title) { title.tabIndex = -1; title.focus({ preventScroll: true }); }
   }
 
   // ---------- boot ----------
   function boot() {
-    // nav
-    document.querySelectorAll('.nav-item').forEach(function (n) {
-      n.addEventListener('click', function () { activate(n.dataset.view); });
+    document.querySelector('.skip-link').addEventListener('click', function (e) { e.preventDefault(); document.getElementById('main').focus(); });
+    window.addEventListener('hashchange', function () { activate(location.hash.slice(1) || 'overview'); });
+    var toggle = document.getElementById('menu-toggle');
+    function closeMenu() { document.body.classList.remove('menu-open'); toggle.setAttribute('aria-expanded', 'false'); }
+    toggle.addEventListener('click', function () {
+      var open = document.body.classList.toggle('menu-open'); toggle.setAttribute('aria-expanded', String(open));
+      if (open) document.querySelector('.nav-item.active').focus();
     });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && document.body.classList.contains('menu-open')) { closeMenu(); toggle.focus(); } });
+    document.getElementById('main').addEventListener('click', closeMenu);
+    document.querySelectorAll('.nav-item').forEach(function (n) { n.addEventListener('click', closeMenu); });
 
     // relógio
     var clockEl = document.getElementById('clock');
     function tick() {
       var d = new Date();
-      function p(x) { return x < 10 ? '0' + x : x; }
-      clockEl.textContent = p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds()) + ' BRT';
+      clockEl.textContent = d.toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit' }) + ' Brasília';
+      clockEl.dateTime = d.toISOString();
     }
     tick();
     setInterval(tick, 1000);
-
-    // ticker
-    var track = document.getElementById('ticker-track');
-    track.innerHTML = DATA.ticker.map(function (t) { return '<span>' + t + '</span>'; }).join('');
 
     // resize global
     window.addEventListener('resize', function () {
       (charts[activeView] || []).forEach(function (c) { c.resize(); });
     });
 
-    activate('overview');
+    activate(location.hash.slice(1) || 'overview');
   }
 
   return {
@@ -162,12 +192,12 @@ window.SIE = (function () {
     fonts: { mono: FONT_MONO, display: FONT_DISPLAY },
     colors: {
       // chaves mantidas do v1; valores AIME (cyan=primary, orange=warning)
-      cyan: '#1C4B6A', cyanHi: '#143A52', orange: '#D29922', orangeHi: '#9A6700',
-      accent: '#45AEAA', accentHover: '#37908D', info: '#58A6FF',
-      pos: '#3FB950', neg: '#F85149', warn: '#D29922',
-      esq: '#D29922', centro: '#6B7280', dir: '#1C4B6A',
-      textHi: '#1F2937', text: '#4B5563', textLow: '#6B7280',
-      bg0: '#F5F7FA', bg1: '#FFFFFF', bg2: '#F0F4F8', bg3: '#E4EAF1', line: '#ECEFF3'
+      cyan: '#005BAA', cyanHi: '#004880', orange: '#FFCB05', orangeHi: '#806300',
+      accent: '#07884F', accentHover: '#06663C', info: '#0072BC',
+      pos: '#07884F', neg: '#BA3436', warn: '#FFCB05',
+      esq: '#FFCB05', centro: '#626C70', dir: '#005BAA',
+      textHi: '#17191C', text: '#444B4C', textLow: '#626C70',
+      bg0: '#FAFAF8', bg1: '#FFFFFF', bg2: '#F2F3F0', bg3: '#E7EBE7', line: '#E5E8E3'
     },
     boot: boot
   };

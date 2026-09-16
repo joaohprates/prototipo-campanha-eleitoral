@@ -51,9 +51,10 @@
         </style>
         <div class="view-kicker">MÓDULO 01 · COLETA CONTÍNUA</div>
         <div class="view-title">Centro de Comando</div>
-        <div class="view-sub">Nós não fazemos pesquisas. Nós analisamos comportamento contínuo em larga escala — bilhões de sinais públicos organizados em decisão tática.</div>
+        <div class="view-sub">Uma visão integrada: indicadores, séries históricas e contexto territorial do Paraná.</div>
       </div>
 
+      <div class="hero-calendar"><div><div class="eyebrow">PARANÁ / CICLO ELEITORAL 2026</div><h2>O contexto completo, em um só lugar.</h2><p>Primeiro turno em 4 de outubro · calendário oficial do TSE.</p><a href="#fontes">Consultar fontes e calendário ↗</a></div><div class="calendar-date"><strong>04</strong><span>OUTUBRO<br>2026</span></div></div>
       <!-- linha 1: KPIs -->
       <div class="grid cols-4 ov-row reveal">
         <div class="panel ov-kpi">
@@ -70,12 +71,12 @@
           <div class="kpi-value"><span data-kpi="mun">0</span><span class="ov-frac">/${k.municipios} municípios</span></div>
           <div class="kpi-label">Cobertura territorial · PR</div>
           <div class="bar ov-covbar"><i style="width:${cobertura}%"></i></div>
-          <div class="kpi-delta flat">${F.pct(cobertura, 1)} do estado sob monitoramento contínuo</div>
+          <div class="kpi-delta flat">${F.pct(cobertura, 1)} do estado na base analisada</div>
         </div>
         <div class="panel ov-kpi">
           <div class="kpi-value" data-kpi="precisao">0%</div>
-          <div class="kpi-label">Precisão do modelo · backtesting</div>
-          <div class="kpi-delta ${k.precisaoDelta >= 0 ? 'up' : 'down'}">${k.precisaoDelta >= 0 ? '▲' : '▼'} ${F.delta(k.precisaoDelta, 'pp')} na última recalibração</div>
+          <div class="kpi-label">Precisão estimada</div>
+          <div class="kpi-delta ${k.precisaoDelta >= 0 ? 'up' : 'down'}">${k.precisaoDelta >= 0 ? '▲' : '▼'} ${F.delta(k.precisaoDelta, 'pp')} na série</div>
         </div>
       </div>
 
@@ -83,26 +84,26 @@
       <div class="grid cols-3 ov-row reveal">
         <div class="panel span-2">
           <div class="panel-head">
-            <div class="panel-title">Projeção em tempo real</div>
-            <div class="panel-meta">D-90 → HOJE · ATUALIZAÇÃO CONTÍNUA</div>
+            <div class="panel-title">Evolução do cenário</div>
+            <div class="panel-meta">90 DIAS · BASE FIXA EM 10 JUL 2026</div>
           </div>
           <div class="chart chart-lg ov-chart-proj"></div>
         </div>
         <div class="panel">
           <div class="panel-head">
-            <div class="panel-title">Intenção projetada hoje</div>
+            <div class="panel-title">Cenário eleitoral</div>
             <div class="panel-meta">10 JUL 2026</div>
           </div>
           ${D.candidatos.map(function (c) {
             var cls = c.delta > 0 ? 'up' : (c.delta < 0 ? 'down' : 'flat');
             var arrow = c.delta > 0 ? '▲' : (c.delta < 0 ? '▼' : '—');
             var esp = c.espectro
-              ? '<span class="ov-esp" style="color:' + espectroCor[c.espectro] + '">' + espectroLabel[c.espectro] + '</span>'
+              ? '<span class="ov-esp" style="color:' + (c.espectro === 'esq' ? C.orangeHi : espectroCor[c.espectro]) + '">' + espectroLabel[c.espectro] + '</span>'
               : '<span class="ov-esp" style="color:var(--text-low)">sem alinhamento</span>';
             return `
             <div class="ov-cand">
               <div class="ov-cand-top">
-                <span class="ov-sigla" style="color:${c.cor};border-color:${rgba(c.cor, 0.45)};background:${rgba(c.cor, 0.08)}">${c.sigla}</span>
+                <span class="ov-sigla" style="color:${c.cor === C.orange ? C.orangeHi : c.cor};border-color:${rgba(c.cor, 0.45)};background:${rgba(c.cor, 0.08)}">${c.sigla}</span>
                 <span class="ov-nome">${c.nome}</span>
                 <span class="ov-proj">${F.pct(c.proj, 1)}</span>
               </div>
@@ -113,7 +114,7 @@
               </div>
             </div>`;
           }).join('')}
-          <div class="ov-note">Projeção comportamental contínua — não é pesquisa eleitoral registrada.</div>
+          <div class="ov-note">Leitura comparativa de cenário. Os valores não representam intenção de voto medida.</div>
         </div>
       </div>
 
@@ -129,7 +130,7 @@
         <div class="panel">
           <div class="panel-head">
             <div class="panel-title">Feed de sinais</div>
-            <div class="panel-meta">TEMPO REAL</div>
+            <div class="panel-meta">EXEMPLOS SIMULADOS</div>
           </div>
           ${D.feed.map(function (f) {
             var tag = f.nivel === 'alerta' ? '<span class="tag orange ov-feed-tag">ALERTA</span>'
@@ -159,7 +160,7 @@
               <div class="ov-spark" data-spark="${ix}"></div>
             </div>`;
           }).join('')}
-          <div class="ov-mod-link">▸ Curvas de adoção completas — Módulo 05 · Monitor Preditivo</div>
+          <a class="ov-mod-link" style="display:block" href="#preditivo">Ver curvas de tendência →</a>
         </div>
       </div>
     `;
@@ -175,7 +176,7 @@
     D.candidatos.forEach(function (c) { byId[c.id] = c; });
     var evCor = { alerta: C.warn, positivo: C.pos, neutro: C.centro };
     // variantes escuras para TEXTO sobre branco (warn/pos puros não têm contraste em label pequeno)
-    var evCorTxt = { alerta: '#9A6700', positivo: '#2E7D32', neutro: C.centro };
+    var evCorTxt = { alerta: '#806300', positivo: '#2E7D32', neutro: C.centro };
 
     function linha(id, width, comArea) {
       var c = byId[id];
@@ -221,7 +222,7 @@
       tooltip: {
         trigger: 'axis',
         formatter: function (ps) {
-          var out = '<div style="color:#6B7280;margin-bottom:4px">' + ps[0].axisValue + ' · projeção</div>';
+          var out = '<div style="color:#626C70;margin-bottom:4px">' + ps[0].axisValue + ' · projeção</div>';
           ps.forEach(function (p) {
             out += p.marker + ' ' + p.seriesName.split(' · ')[0] + '  <b>' +
               p.value.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + '%</b><br>';
@@ -253,7 +254,7 @@
         data: plat.map(function (p) { return p.share; }),
         barWidth: 13,
         showBackground: true,
-        backgroundStyle: { color: 'rgba(28,75,106,0.06)', borderRadius: [0, 2, 2, 0] },
+        backgroundStyle: { color: 'rgba(0,91,170,0.06)', borderRadius: [0, 2, 2, 0] },
         itemStyle: {
           borderRadius: [0, 2, 2, 0],
           color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
@@ -269,7 +270,7 @@
             return '{share|' + p.value + '%}  {' + cls + '|' + F.delta(pl.cresc, '%') + '}';
           },
           rich: {
-            share: { color: '#1F2937', fontFamily: SIE.fonts.mono, fontSize: 12, fontWeight: 600 },
+            share: { color: '#17191C', fontFamily: SIE.fonts.mono, fontSize: 12, fontWeight: 600 },
             pos: { color: '#2E7D32', fontFamily: SIE.fonts.mono, fontSize: 12 },
             neg: { color: '#C62828', fontFamily: SIE.fonts.mono, fontSize: 12 }
           }

@@ -32,7 +32,7 @@
         .pd-status { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 14px; }
         .pd-acao-top {
           margin-left: auto; font-family: var(--f-mono); font-size: 14px;
-          letter-spacing: 0.06em; color: #9A6700;
+          letter-spacing: 0.06em; color: #806300;
         }
         .pd-card { display: flex; flex-direction: column; }
         .pd-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 12px; }
@@ -47,7 +47,7 @@
         .pd-fact-v { font-family: var(--f-mono); font-size: 14px; color: var(--text); line-height: 1.45; }
         .pd-acaoline {
           margin-top: 12px; padding: 8px 11px; font-size: 14px; line-height: 1.45;
-          border-left: 3px solid var(--cyan); background: var(--cyan-dim); color: #1F2937;
+          border-left: 3px solid var(--cyan); background: var(--cyan-dim); color: #17191C;
           border-radius: 12px;
         }
         .pd-spark { margin-top: 12px; }
@@ -68,14 +68,14 @@
         .pd-pillars b { color: var(--text); font-weight: 500; }
       </style>
         <div class="view-kicker">MÓDULO 05 · MONITOR PREDITIVO</div>
-        <div class="view-title">Detectando Ondas Antes Que Virem Tsunamis</div>
-        <div class="view-sub">Machine Learning transforma sinais comportamentais históricos e em tempo real em projeções eleitorais. O sistema alerta no ponto de intervenção estratégica — antes das pesquisas tradicionais.</div>
+        <div class="view-title">Monitor de tendências</div>
+        <div class="view-sub">Curvas de evolução temática. Explore as fases do cenário e seus limites de interpretação.</div>
       </div>
 
       <section class="panel alert reveal" style="margin-bottom:16px">
         <div class="panel-head">
           <div class="panel-title">Onda em fase 2 — Pedágio nas rodovias</div>
-          <div class="panel-meta">MODELO PREDITIVO · PRECISÃO ${F.pct(D.kpis.precisaoModelo)} · BACKTESTING 2024 · JANELA ${dias.length} DIAS</div>
+          <div class="panel-meta">PRECISÃO NÃO VALIDADA · JANELA ${dias.length} DIAS</div>
         </div>
         <div class="pd-status">
           <span class="tag orange">FASE 2 · PONTO DE INTERVENÇÃO</span>
@@ -131,9 +131,9 @@
       <section class="panel reveal">
         <div class="panel-head">
           <div class="panel-title">Governança do modelo</div>
-          <div class="panel-meta">LGPD · DADOS PÚBLICOS AGREGADOS · SEM IDENTIFICAÇÃO INDIVIDUAL</div>
+          <div class="panel-meta">SEM MODELO CONECTADO</div>
         </div>
-        <div class="pd-quote">“O objetivo do algoritmo não é prever o voto do indivíduo. O sistema modela padrões coletivos em escala populacional. <strong>O indivíduo é anônimo; a multidão é previsível.</strong>”</div>
+        <div class="pd-quote">As curvas organizam tendências temáticas. <strong>Não há previsão validada ou garantia de comportamento futuro.</strong></div>
         <div class="pd-pillars"><b>▲ Monitoramento de emergentes</b> &nbsp;·&nbsp; <b>⚠ Prevenção de crises</b> &nbsp;·&nbsp; <b>◎ Rastreio de crescimento fora do radar</b></div>
       </section>
     `;
@@ -168,25 +168,25 @@
           lineStyle: { color: C.orange, width: 2.5 },
           areaStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              { offset: 0, color: 'rgba(210,153,34,0.16)' },
-              { offset: 1, color: 'rgba(210,153,34,0)' }
+              { offset: 0, color: 'rgba(255,203,5,0.16)' },
+              { offset: 1, color: 'rgba(255,203,5,0)' }
             ])
           },
           markArea: {
             silent: true,
             data: [
               [
-                { xAxis: dias[0], itemStyle: { color: 'rgba(28,75,106,0.05)' },
-                  label: { formatter: 'FASE 1 · SINAIS ESPONTÂNEOS', position: 'insideTop', distance: 10, color: '#1C4B6A', fontFamily: SIE.fonts.mono, fontSize: 11 } },
+                { xAxis: dias[0], itemStyle: { color: 'rgba(0,91,170,0.05)' },
+                  label: { formatter: 'FASE 1 · SINAIS ESPONTÂNEOS', position: 'insideTop', distance: 10, color: '#005BAA', fontFamily: SIE.fonts.mono, fontSize: 11 } },
                 { xAxis: dias[f1End] }
               ],
               [
-                { xAxis: dias[f1End], itemStyle: { color: 'rgba(210,153,34,0.10)' },
-                  label: { formatter: 'PONTO DE INTERVENÇÃO\n— A IA ALERTA AQUI', position: 'insideTop', distance: 10, color: '#9A6700', fontFamily: SIE.fonts.mono, fontSize: 12, fontWeight: 600, lineHeight: 17, align: 'center' } },
+                { xAxis: dias[f1End], itemStyle: { color: 'rgba(255,203,5,0.10)' },
+                  label: { formatter: 'PONTO DE INTERVENÇÃO\n— A IA ALERTA AQUI', position: 'insideTop', distance: 10, color: '#806300', fontFamily: SIE.fonts.mono, fontSize: 12, fontWeight: 600, lineHeight: 17, align: 'center' } },
                 { xAxis: dias[f2End] }
               ],
               [
-                { xAxis: dias[f2End], itemStyle: { color: 'rgba(248,81,73,0.06)' },
+                { xAxis: dias[f2End], itemStyle: { color: 'rgba(186,52,54,0.06)' },
                   label: { formatter: 'FASE 3 · ONDA ESTABELECIDA', position: 'insideTop', distance: 10, color: '#C62828', fontFamily: SIE.fonts.mono, fontSize: 11 } },
                 { xAxis: dias[dias.length - 1] }
               ]
@@ -195,8 +195,8 @@
           markLine: {
             silent: true,
             symbol: 'none',
-            lineStyle: { color: '#6B7280', type: 'dashed', width: 1.2 },
-            label: { formatter: 'HOJE', position: 'insideEndBottom', distance: 6, color: '#6B7280', fontFamily: SIE.fonts.mono, fontSize: 11 },
+            lineStyle: { color: '#626C70', type: 'dashed', width: 1.2 },
+            label: { formatter: '10 JUL', position: 'insideEndBottom', distance: 6, color: '#626C70', fontFamily: SIE.fonts.mono, fontSize: 11 },
             data: [{ xAxis: dias[dias.length - 1] }]
           }
         },

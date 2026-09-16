@@ -12,14 +12,14 @@
   // c = cor da série (traços de gráfico) · t = variante escura p/ TEXTO sobre fundo claro
   // bd = borda tonal · dim = fundo tonal · area = areaStyle do radar
   var ACC = {
-    A: { c: C.cyan,   t: C.cyan,     bd: 'rgba(28,75,106,0.25)',   dim: 'rgba(28,75,106,0.12)',   area: 'rgba(28,75,106,0.16)' },
-    B: { c: C.orange, t: C.orangeHi, bd: 'rgba(210,153,34,0.25)',  dim: 'rgba(210,153,34,0.12)',  area: 'rgba(210,153,34,0.16)' },
+    A: { c: C.cyan,   t: C.cyan,     bd: 'rgba(0,91,170,0.25)',   dim: 'rgba(0,91,170,0.12)',   area: 'rgba(0,91,170,0.16)' },
+    B: { c: C.orange, t: C.orangeHi, bd: 'rgba(255,203,5,0.25)',  dim: 'rgba(255,203,5,0.12)',  area: 'rgba(255,203,5,0.16)' },
     C: { c: C.centro, t: C.centro,   bd: 'rgba(107,114,128,0.25)', dim: 'rgba(107,114,128,0.12)', area: 'rgba(107,114,128,0.14)' }
   };
 
   function dominante(e) {
     var m = [
-      // cor aqui é TEXTO sobre branco → warning usa a variante escura (#9A6700)
+      // cor aqui é TEXTO sobre branco → warning usa a variante escura (#806300)
       ['ESQUERDA', e.esquerda, C.orangeHi],
       ['CENTRO', e.centro, C.centro],
       ['DIREITA', e.direita, C.dir]
@@ -177,7 +177,7 @@
         </style>
         <div class="view-kicker">MÓDULO 02 · PERFILAMENTO</div>
         <div class="view-title">Assinaturas Comportamentais</div>
-        <div class="view-sub">Índices de afinidade absolutos baseados no consumo real de conteúdo, não em respostas de questionários. O fim do achismo.</div>
+        <div class="view-sub">Visualização de perfis agregados para leitura de comportamento e contexto.</div>
       </div>
 
       <div class="grid cols-3 reveal">
@@ -187,7 +187,7 @@
       <div class="panel reveal" style="margin-top:16px">
         <div class="panel-head">
           <div class="panel-title">Afinidade temática comparada</div>
-          <div class="panel-meta">ÍNDICE 0–100 · CONSUMO OBSERVADO · JANELA 30D</div>
+          <div class="panel-meta">ÍNDICE 0–100 · JANELA 30D</div>
         </div>
         <div class="pf-radar-body">
           <div class="pf-radar-chart" id="pf-radar"></div>
@@ -222,7 +222,7 @@
       <div class="panel alert reveal pf-doctrine" style="margin-top:16px">
         <div>
           <div class="pf-doct-kicker">Princípio operacional</div>
-          <div class="pf-doct-text">Trata-se de <strong>comportamento observado</strong>, não de opinião declarada. O sistema lê as <strong>entrelinhas do consumo digital</strong>.</div>
+          <div class="pf-doct-text">As distribuições exibidas são <strong>sintéticas</strong>. Não há inferência de opinião política de pessoas neste protótipo.</div>
         </div>
         <div class="spectrum-legend">
           <span class="sw-esq"><i></i>Esquerda</span>
@@ -265,7 +265,7 @@
             { value: e.centro, name: 'Centro', itemStyle: { color: C.centro, borderColor: C.bg1, borderWidth: 2, borderRadius: 3 } },
             { value: e.direita, name: 'Direita', itemStyle: { color: C.dir, borderColor: C.bg1, borderWidth: 2, borderRadius: 3 } },
             // metade inferior — trilha clara (fecha o semicírculo)
-            { value: total, name: '', itemStyle: { color: '#F0F4F8', borderWidth: 0 }, tooltip: { show: false }, emphasis: { disabled: true } }
+            { value: total, name: '', itemStyle: { color: '#F2F3F0', borderWidth: 0 }, tooltip: { show: false }, emphasis: { disabled: true } }
           ]
         }]
       }, 'perfis');
@@ -279,7 +279,7 @@
         confine: true,
         formatter: function (pr) {
           var rows = dimsR.map(function (d, i) {
-            return d + ' <b style="color:#1F2937;float:right;margin-left:14px">' + F.int(pr.value[i]) + '</b>';
+            return d + ' <b style="color:#17191C;float:right;margin-left:14px">' + F.int(pr.value[i]) + '</b>';
           }).join('<br>');
           return '<b style="color:' + pr.color + '">' + pr.name + '</b><br>' + rows;
         }
@@ -296,7 +296,7 @@
         axisName: { color: C.textLow, fontFamily: SIE.fonts.mono, fontSize: 12 },
         axisLine: { lineStyle: { color: C.line } },
         splitLine: { lineStyle: { color: C.line } },
-        splitArea: { areaStyle: { color: ['rgba(28,75,106,0)', 'rgba(28,75,106,0.02)'] } }
+        splitArea: { areaStyle: { color: ['rgba(0,91,170,0)', 'rgba(0,91,170,0.02)'] } }
       },
       series: [{
         type: 'radar',

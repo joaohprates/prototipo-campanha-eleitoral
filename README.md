@@ -1,38 +1,68 @@
-# SIE — Sistema de Inteligência Eleitoral (protótipo)
+# SIE — Sistema de Inteligência Eleitoral
 
-Protótipo navegável de uma plataforma de inteligência comportamental eleitoral — o "Google Analytics das Eleições". Contexto demonstrativo: Paraná · Ciclo 2026.
+Protótipo estático navegável para apresentação. Oito módulos, com dados sintéticos e uma área de referências oficiais.
 
-> **Aviso:** todos os dados são simulados e todos os nomes de pessoas são fictícios. Este é um protótipo de conceito para apresentação — não coleta, processa nem exibe dados reais.
+## Executar
 
-## Módulos
+Abra `index.html` ou execute na raiz:
 
-| # | Módulo | Conteúdo |
-|---|---|---|
-| 01 | Centro de Comando | KPIs de coleta, projeção 90 dias, share de voz, feed de sinais |
-| 02 | Assinaturas Comportamentais | Perfis agregados com espectro ideológico e radar de afinidades |
-| 03 | Mapa de Calor | Choropleth real do Paraná (399 municípios) com 4 lentes + drill-down por bairro |
-| 04 | Radiografia de Pautas | Rede de co-engajamento temático, ranking de tração, sentimento |
-| 05 | Monitor Preditivo | Curva de adoção em 3 fases, ondas emergentes, governança do modelo |
-| 06 | Playbook Tático | Recomendações estratégicas priorizadas por frente de ação |
+```sh
+python -m http.server 4173 --bind 127.0.0.1
+```
 
-## Stack
+Acesse http://127.0.0.1:4173. Não exige build, instalação ou credenciais.
 
-- HTML/CSS/JS vanilla, sem build — abre direto (`index.html`) ou em qualquer host estático
-- [ECharts 5](https://echarts.apache.org/) vendorado em `assets/`
-- GeoJSON dos municípios do PR ([geodata-br](https://github.com/tbrugz/geodata-br)) embutido em `assets/parana-geo.js`
-- Design system: AIME (light theme, primary `#1C4B6A`, accent `#45AEAA`, Roboto ≥14px)
+## O que funciona
 
-## Deploy
+- Navegação por links `#overview`, `#perfis`, `#mapa`, `#pautas`, `#preditivo`, `#playbook` , `#fontes` e `#pesquisas`, inclusive voltar/avançar e acesso direto.
+- Menu para celular, navegação por teclado, indicação da página ativa e respeito à preferência de movimento reduzido.
+- Gráficos ECharts e quatro lentes existentes do mapa.
+- Fontes com filtro por status, exportação CSV do filtro atual e impressão/salvar PDF pelo navegador.
+- Layout compartilhado adaptável, sem build e sem backend.
 
-Site 100% estático — na Vercel basta importar o repositório (framework preset: **Other**, sem build command, output directory: raiz).
+## Dados e referências
+
+**Os nomes, indicadores, perfis, projeções e análises dos módulos 01 a 06 são fictícios.** As séries mantêm sua referência original, **10/07/2026**; a revisão visual não atualiza nem valida esses números.
+
+Referências verificadas em **15/09/2026**:
+
+- [Calendário 2026 — TSE](https://www.tse.jus.br/comunicacao/noticias/2026/Marco/eleicoes-2026-confira-as-principais-datas-do-calendario-eleitoral): primeiro turno em 04/10 e eventual segundo turno em 25/10.
+- [Central Eleições 2026 — TSE](https://www.tse.jus.br/eleicoes/eleicoes-2026).
+
+As referências são editoriais, sem sincronização automática. Não há coleta de redes sociais, autenticação, modelo de IA conectado, backtesting ou validação estatística dos percentuais exibidos. O mapa geográfico vem de `assets/parana-geo.js`; os valores sobre ele são simulados. Não há certificado de conformidade legal implícito na interface.
 
 ## Estrutura
 
+- `index.html`: shell, menu, área principal e rodapé.
+- `css/styles.css`: tokens, componentes, layouts responsivos e impressão.
+- `js/app.js`: runtime, navegação e acessibilidade compartilhada.
+- `js/data.js`: base demonstrativa original.
+- `js/views/*.js`: módulos; `fontes.js` contém referências e exportação.
+- `assets/`: ECharts e geometria local do Paraná.
+
+Tema editorial inspirado na referência Steep fornecida: tipografia restaurada para Roboto, cartões de 24 px, sombras mínimas e controles em pílula. Paleta conferida em [Materiais — Flávio Bolsonaro](https://www.flaviobolsonaro.com.br/materiais): azul `#005BAA`, verde `#07884F`, verde vivo `#12B24B`, amarelo `#FFCB05` e fundo quente `#FFF8E3`. Estilos em `css/editorial-theme.css`.
+
+Fontes tipográficas Roboto e Roboto Mono via Google Fonts, com fallback local. Gráficos e base demonstrativa carregam de arquivos locais.
+
+## Validação
+
+```sh
+node tests/smoke.mjs
 ```
-index.html          shell (nav, topbar, ticker)
-css/styles.css      design tokens + componentes compartilhados
-js/app.js           runtime (registro de views, tema ECharts, helpers)
-js/data.js          dados simulados centralizados
-js/views/*.js       uma view por módulo
-assets/             ECharts + geoJSON do Paraná
-```
+
+Teste de sintaxe e exportação de referências (filtro, cabeçalho, codificação UTF-8 e conteúdo). A revisão manual das sete telas foi feita em 1440 × 1000 e 390 × 844. O diálogo de impressão e a gravação final do download dependem do navegador.
+
+## Publicação
+
+Hospedagem estática: raiz do projeto como diretório público, sem comando de build. Nenhuma publicação remota faz parte desta revisão.
+
+
+## Central de Pesquisas
+
+O módulo `#pesquisas` é separado da base fictícia dos módulos 01–06. A curadoria inicial de 15/09/2026 contém cinco levantamentos publicados, de AtlasIntel, Datafolha, Real Time Big Data e Quaest, abrangendo Brasil, Paraná e Minas Gerais. A publicação da AtlasIntel tem apenas ficha resumida conferida; percentuais e registro não foram transcritos. Cada registro contém sua URL de procedência, campo, publicação, amostra e margem.
+
+Filtros: Presidente, Governador, Senador, Deputado federal, Deputado estadual; instituto; abrangência; turno; busca por nome/registro e ordenação. Ausência no catálogo não significa ausência de pesquisas existentes. Primeiro e segundo turnos permanecem em cenários distintos. Senado identifica a base para as duas vagas. Não se calculam médias nem se normalizam percentuais transcritos.
+
+**Atualização editorial, não automática:** editar `js/polls-data.js` com novos registros e respectivas fontes; atualizar a data de revisão no catálogo e no shell de `js/app.js`. Não há integração dos institutos ou promessa de cobertura exaustiva. Os registros do TSE são reproduzidos das fontes, sem consulta independente ao PesqEle. Os dados técnicos seguem a publicação indicada em cada ficha; divergências entre veículos não são combinadas.
+
+Validação adicional: `node tests/polls.mjs`.

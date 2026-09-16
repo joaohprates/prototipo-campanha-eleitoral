@@ -8,9 +8,9 @@ window.SIE_DATA = (function () {
   // ---------- candidatos (fictícios) ----------
   var candidatos = [
     // cores = paleta categórica do espectro (AIME): dir=primary, esq=warning, centro=cinza
-    { id: 'hv', nome: 'Helena Vasconcelos', sigla: 'HV', cor: '#1C4B6A', proj: 34.6, delta: +1.8, espectro: 'dir' },
-    { id: 'rb', nome: 'Ricardo Bittencourt', sigla: 'RB', cor: '#D29922', proj: 30.9, delta: -0.7, espectro: 'esq' },
-    { id: 'mt', nome: 'Marcos Tavares', sigla: 'MT', cor: '#6B7280', proj: 17.2, delta: +0.4, espectro: 'centro' },
+    { id: 'hv', nome: 'Helena Vasconcelos', sigla: 'HV', cor: '#005BAA', proj: 34.6, delta: +1.8, espectro: 'dir' },
+    { id: 'rb', nome: 'Ricardo Bittencourt', sigla: 'RB', cor: '#FFCB05', proj: 30.9, delta: -0.7, espectro: 'esq' },
+    { id: 'mt', nome: 'Marcos Tavares', sigla: 'MT', cor: '#626C70', proj: 17.2, delta: +0.4, espectro: 'centro' },
     { id: 'ind', nome: 'Indecisos / Outros', sigla: '—', cor: '#C7CDD6', proj: 17.3, delta: -1.5, espectro: null }
   ];
 

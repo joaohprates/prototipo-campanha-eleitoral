@@ -1,0 +1,142 @@
+/* Steep editorial styling + palette inspected at flaviobolsonaro.com.br/materiais.
+   Brand colors: blue #005BAA, green #07884F / #12B24B, yellow #FFCB05.
+   Typography restored to Roboto and Roboto Mono at user request. */
+:root {
+  --brand-blue: #005BAA;
+  --brand-green: #07884F;
+  --brand-green-bright: #12B24B;
+  --brand-yellow: #FFCB05;
+  --paper-warm: #FFF8E3;
+  --bg-0: #fafaf8;
+  --bg-1: #ffffff;
+  --bg-2: #f2f3f0;
+  --bg-3: #e7ebe7;
+  --line: #e5e8e3;
+  --line-soft: #eff1ed;
+  --text-hi: #17191c;
+  --text: #444b4c;
+  --text-low: #626c70;
+  --cyan: var(--brand-blue);
+  --cyan-hi: #004880;
+  --cyan-dim: #edf4fa;
+  --accent: var(--brand-green);
+  --accent-hover: #06663c;
+  --accent-light: #ecf5ed;
+  --orange: var(--brand-yellow);
+  --orange-hi: #806300;
+  --orange-dim: var(--paper-warm);
+  --info: #0072BC;
+  --pos: var(--brand-green);
+  --neg: #ba3436;
+  --warn: var(--brand-yellow);
+  --esq: var(--brand-yellow);
+  --centro: #777b86;
+  --dir: var(--brand-blue);
+  --f-editorial: var(--f-display);
+  --shadow-card: none;
+  --shadow-pop: 0 12px 32px #17191c0d;
+}
+body { font-size:15px; }
+:focus-visible { outline-color:var(--brand-blue); }
+.view-title:focus:not(:focus-visible) { outline:none; }
+.rail { background:var(--bg-1); border-right:1px solid var(--line); color:var(--text); }
+.brand { border-color:var(--line); }
+.brand-mark { color:var(--brand-blue); font-family:var(--f-editorial); font-size:36px; font-weight:400; letter-spacing:-.04em; }
+.brand-mark .diamond { background:var(--brand-yellow); border-radius:2px; box-shadow:5px 5px 0 var(--brand-green); width:16px; height:16px; margin-right:10px; }
+.brand-sub,.workspace-label { color:var(--text-low); }
+.nav-item { color:var(--text); border-radius:999px; padding:12px 15px; }
+.nav-label { font-size:13px; font-weight:500; }
+.nav-index { color:#707974; }
+.nav-item:hover { background:var(--bg-2); color:var(--text-hi); }
+.nav-item.active { background:var(--brand-blue); color:white; box-shadow:none; }
+.nav-item.active .nav-index { color:#e1eef9; }
+.nav-divider { background:var(--line); }
+.rail-foot { border-color:var(--line); color:var(--text-low); }
+.environment-label { color:#06663c; }
+.rail-foot a { color:var(--brand-blue); }
+.topbar { background:var(--bg-1); border-color:var(--line); }
+.ctx { font-weight:500; font-size:14px; }
+.topbar-help { font-size:13px; }
+.live-badge { border-color:#e4d799; border-radius:999px; background:var(--paper-warm); color:#6a5400; padding:6px 12px; }
+.avatar { background:#edf5ee; color:var(--brand-green); font-weight:500; }
+.context-strip { padding-bottom:32px; }
+.context-strip i { background:var(--brand-green); }
+.view-head { margin-bottom:28px; }
+.view-kicker { color:var(--brand-green); font-weight:500; letter-spacing:.12em; }
+.view-kicker::before { background:var(--brand-green-bright); }
+.view-title { font-family:var(--f-editorial); font-size:clamp(38px,3.6vw,56px); font-weight:400; letter-spacing:-.035em; line-height:1.18; }
+.view-sub { font-size:15px; line-height:1.65; max-width:790px; margin-top:14px; }
+.demo-note { border:1px solid var(--line); background:transparent; border-radius:16px; padding:14px 18px; font-size:12px; color:var(--text-low); }
+.demo-note strong { color:var(--text); font-weight:500; }
+.demo-note a { color:var(--brand-blue); }
+.panel { border-radius:24px; padding:24px; border:1px solid var(--line); box-shadow:none; }
+.panel.alert { background:#f2f5f0; border-color:#e3e9df; }
+.panel-title { font-size:16px; font-weight:500; }
+.panel-meta { font-size:11px; letter-spacing:.02em; }
+.grid { gap:24px; }
+.ov-kpi,.ov-kpi:first-child { border:0; background:#f0f3ef; }
+.ov-kpi:first-child { background:#eaf2f8; }
+.kpi-value { font-size:36px; font-weight:500; letter-spacing:-.04em; }
+.kpi-label { font-size:13px; text-transform:none; }
+.kpi-delta { font-size:12px; }
+.kpi-delta.up { color:#06663c; }
+.kpi-delta.down { color:#ad3036; }
+.hero-calendar { background:var(--paper-warm); color:var(--text-hi); border-radius:24px; padding:32px; gap:32px; margin-bottom:28px; border:1px solid #f1e8c9; }
+.hero-calendar::after { display:none; }
+.hero-calendar .eyebrow { color:#655518; }
+.hero-calendar h2 { font-family:var(--f-editorial); font-size:clamp(26px,2.3vw,34px); line-height:1.25; font-weight:400; letter-spacing:-.025em; max-width:550px; margin:12px 0; }
+.hero-calendar p { color:#635f50; font-size:14px; line-height:1.5; }
+.hero-calendar a { display:inline-block; color:var(--brand-blue); font-size:13px; margin-top:12px; text-underline-offset:4px; }
+.calendar-date { border-left:1px solid #e1d7b1; padding-left:24px; }
+.calendar-date strong { color:var(--brand-blue); font:500 72px/1 var(--f-editorial); letter-spacing:-.06em; }
+.calendar-date span { color:#645d43; line-height:1.6; }
+.action-button { border-radius:999px; border-color:var(--brand-blue); color:var(--brand-blue); background:transparent; font-size:14px; font-weight:500; padding:12px 22px; }
+.action-button.primary { background:var(--brand-blue); border-color:var(--brand-blue); }
+.source-card h2 { font-family:var(--f-editorial); font-size:28px; line-height:1.25; font-weight:400; letter-spacing:-.025em; }
+.source-card p { font-size:14px; }
+.source-card a { font-size:14px; }
+.source-status { color:#06663c; }
+.source-status.demo { color:#806300; }
+.source-filter { font-size:14px; }
+.source-filter select { border-radius:999px; padding:10px 18px; }
+.calendar-list strong { font-weight:500; }
+.calendar-list p,.method-list { font-size:14px; }
+.tag { font-size:11px; font-weight:500; border-radius:999px; letter-spacing:.02em; }
+.tag.cyan { color:var(--brand-blue); border-color:#d0e1ef; background:#edf4fa; }
+.tag.orange,.tag.warn { color:#806300; border-color:#e9dba6; background:#fff8e3; }
+.tag.pos { color:#06663c; border-color:#cbe3d2; background:#ecf5ed; }
+.tag.neg { color:#ad3036; border-color:#eed2d2; background:#fcf0f0; }
+.view .mp-seg { border-radius:999px; background:var(--bg-2); }
+.view .mp-seg-btn { border-radius:999px; font-family:var(--f-body); }
+.view .mp-seg-btn.active { color:white; background:var(--brand-blue); }
+.view .pf-id { border-radius:16px; font-family:var(--f-editorial); font-weight:400; }
+.view .pf-nome,.view .pd-tema { font-family:var(--f-editorial); font-size:22px; font-weight:400; letter-spacing:-.02em; }
+.view .pf-gauge-core b { font-weight:500; }
+.view .pd-fase-num { font-family:var(--f-editorial); font-style:normal; }
+.bar { background:var(--bg-3); }
+.table th { font-size:12px; font-weight:500; }
+.table tr:hover td { background:#f4f7f2; }
+.ticker { border-color:var(--line); }
+.ticker-label { color:var(--brand-blue); }
+.menu-toggle { border-radius:999px; }
+@media(min-width:1500px) { .view.active { max-width:1440px; } }
+@media(max-width:900px) { .calendar-date { border-left:0; padding-left:0; }.hero-calendar { gap:24px; } }
+@media(max-width:700px) {
+  .rail { box-shadow:20px 0 60px #17191c14; }
+  .ctx { font-size:11px; }.topbar-help { display:none; }.live-badge { font-size:8px; padding:5px 8px; }
+  .main { padding:20px 16px 32px; }.context-strip { padding-bottom:28px; }
+  .view-title { font-size:38px; }.view-sub { font-size:14px; }
+  .demo-note { font-size:11px; padding:14px; }.demo-note span { margin:8px 0; }
+  .hero-calendar { padding:24px; }.hero-calendar h2 { font-size:28px; }.hero-calendar p { font-size:13px; }
+  .calendar-date strong { font-size:62px; }.grid { gap:18px; }.panel { padding:20px; border-radius:24px; }
+  .kpi-value,.cols-4 .kpi-value { font-size:36px; }.kpi-label { font-size:13px; }
+  .panel-title { font-size:15px; }.panel-meta { font-size:10px; }
+  .view .mp-seg { border-radius:20px; }.source-card h2 { font-size:26px; }
+}
+@media print { .hero-calendar { background:white; color:#17191c; }.panel { border:1px solid #ddd; } }
+/* Route headings receive programmatic focus; controls retain visible focus rings. */
+.view-title:focus { outline:none; }
+
+/* Original sans-serif heading hierarchy. */
+.brand-mark,.view-title { font-weight:700; }
+.hero-calendar h2,.source-card h2,.view .pf-nome,.view .pd-tema { font-weight:500; }

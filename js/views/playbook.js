@@ -65,8 +65,8 @@
         .pb-priobar { display: flex; height: 5px; border-radius: 2px; overflow: hidden; background: var(--bg-3); margin-bottom: 9px; }
         .pb-priobar i { display: block; height: 100%; }
         .pb-mod { transition: border-color 0.2s, transform 0.2s; }
-        .pb-mod:hover { border-color: rgba(28, 75, 106, 0.25); transform: translateY(-2px); }
-        .pb-mod.alert:hover { border-color: rgba(210, 153, 34, 0.35); }
+        .pb-mod:hover { border-color: rgba(0, 91, 170, 0.25); transform: translateY(-2px); }
+        .pb-mod.alert:hover { border-color: rgba(255, 203, 5, 0.35); }
         .pb-mod-top { display: flex; gap: 13px; align-items: flex-start; margin-bottom: 8px; }
         .pb-icon {
           flex: none; width: 46px; height: 46px; border-radius: 12px;
@@ -129,9 +129,9 @@
           <div class="kpi-delta up">potencial · execução integral em 14 dias</div>
         </div>
         <div class="panel">
-          <div class="kpi-value pb-mono-kpi">há 22 min</div>
-          <div class="kpi-label">Última recalibração</div>
-          <div class="kpi-delta flat">ciclo automático · a cada 30 min</div>
+          <div class="kpi-value pb-mono-kpi">10 jul 2026</div>
+          <div class="kpi-label">Referência do cenário</div>
+          <div class="kpi-delta flat">base fixa · sem atualização automática</div>
         </div>
       </div>
 
@@ -140,14 +140,10 @@
       </div>
 
       <div class="panel pb-foot reveal">
-        <button class="pb-cta" type="button">
-          Exportar briefing semanal (PDF)
-          <span class="pb-arrow">→</span>
-          comando da campanha
-        </button>
+        <a class="action-button" href="#fontes">Consultar fontes e limitações →</a>
         <div class="pb-note">
-          <span class="tag pos">LGPD</span>
-          <span>Recomendações geradas por modelo preditivo sobre dados agregados e anônimos — conformidade LGPD.</span>
+          <span class="tag">DEMO</span>
+          <span>Sem modelo conectado ou validação dos impactos exibidos.</span>
         </div>
       </div>
     `;

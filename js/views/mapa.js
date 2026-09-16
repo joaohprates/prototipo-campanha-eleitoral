@@ -19,7 +19,7 @@
       vmColor: ['#EDF2F7', C.accent], vmText: ['ALTO', 'BAIXO']
     },
     crescimento: {
-      curto: 'Crescimento', rotulo: 'Crescimento de narrativas', corHi: '#9A6700', seed: 41,
+      curto: 'Crescimento', rotulo: 'Crescimento de narrativas', corHi: '#806300', seed: 41,
       vmColor: ['#EDF2F7', C.orange], vmText: ['ACELERADO', 'ESTÁVEL']
     },
     influencia: {
@@ -58,7 +58,7 @@
     return NOMES.map(function (nome) {
       var item = { name: nome, value: valorDe(nome, lente) };
       if (D.mapaAncoras[nome]) {
-        item.itemStyle = { borderColor: '#D29922', borderWidth: 1.2 };
+        item.itemStyle = { borderColor: '#FFCB05', borderWidth: 1.2 };
       }
       return item;
     });
@@ -99,7 +99,7 @@
       html += '<div style="margin-top:6px;padding-top:5px;border-top:1px solid ' + C.line + '">' +
         '<span style="color:' + cand.cor + '">●</span> Líder local: <b style="color:' + cand.cor + '">' +
         cand.sigla + '</b> — ' + cand.nome + '</div>' +
-        '<div style="color:#9A6700;font-size:11px;letter-spacing:.06em;margin-top:3px">PRAÇA-CHAVE · LEITURA CONSOLIDADA</div>';
+        '<div style="color:#806300;font-size:11px;letter-spacing:.06em;margin-top:3px">PRAÇA-CHAVE · LEITURA CONSOLIDADA</div>';
     } else {
       html += '<div style="color:' + C.textLow + ';font-size:11px;letter-spacing:.06em;margin-top:5px">ESTIMATIVA DO MODELO · JANELA 7D</div>';
     }
@@ -114,9 +114,9 @@
       itemStyle: { areaColor: '#EDF0F4', borderColor: '#FFFFFF', borderWidth: 0.8 },
       emphasis: {
         itemStyle: {
-          areaColor: 'rgba(28,75,106,0.14)', borderColor: C.cyan, borderWidth: 1.2
+          areaColor: 'rgba(0,91,170,0.14)', borderColor: C.cyan, borderWidth: 1.2
         },
-        label: { show: true, color: '#1F2937', fontFamily: SIE.fonts.mono, fontSize: 11, fontWeight: 600 }
+        label: { show: true, color: '#17191C', fontFamily: SIE.fonts.mono, fontSize: 11, fontWeight: 600 }
       },
       select: { disabled: true },
       label: { show: false },
@@ -158,6 +158,7 @@
     lenteAtual = lente;
     container.querySelectorAll('.mp-seg-btn').forEach(function (b) {
       b.classList.toggle('active', b.dataset.lente === lente);
+      b.setAttribute('aria-pressed', String(b.dataset.lente === lente));
     });
     var lObj = null;
     for (var i = 0; i < D.mapaLentes.length; i++) if (D.mapaLentes[i].id === lente) lObj = D.mapaLentes[i];
@@ -203,7 +204,7 @@
           '.mp-seg{display:inline-flex;gap:2px;background:var(--bg-2);border-radius:12px;padding:3px;}' +
           '.mp-seg-btn{appearance:none;border:none;background:transparent;color:var(--text-low);font-family:var(--f-body);font-size:14px;font-weight:500;padding:6px 14px;border-radius:9px;cursor:pointer;transition:background .15s,color .15s,box-shadow .15s;}' +
           '.mp-seg-btn:hover{color:var(--text-hi);}' +
-          '.mp-seg-btn.active{background:#FFFFFF;color:var(--cyan);box-shadow:0 1px 3px rgba(28,73,108,.12);}' +
+          '.mp-seg-btn.active{background:#FFFFFF;color:var(--cyan);box-shadow:0 1px 3px rgba(0,91,170,.12);}' +
           '.mp-lens-row{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:10px;}' +
           '.mp-lens-desc{font-family:var(--f-mono);font-size:14px;letter-spacing:.04em;color:var(--text-low);}' +
           '.mp-side-foot{margin-top:14px;padding-top:12px;border-top:1px solid var(--line-soft);font-family:var(--f-mono);font-size:14px;color:var(--text-low);letter-spacing:.02em;line-height:1.8;}' +
@@ -218,7 +219,7 @@
           '.mp-row{display:grid;grid-template-columns:36px 1fr 34px;align-items:center;gap:9px;margin-bottom:5px;}' +
           '.mp-row-lab{font-family:var(--f-mono);font-size:14px;letter-spacing:.04em;color:var(--text-low);}' +
           '.mp-row-val{font-family:var(--f-mono);font-size:14px;color:var(--text);text-align:right;font-variant-numeric:tabular-nums;}' +
-          '.mp-spec{height:4px;border-radius:2px;background:linear-gradient(90deg,#D29922,#E5E7EB 50%,#1C4B6A);position:relative;}' +
+          '.mp-spec{height:4px;border-radius:2px;background:linear-gradient(90deg,#FFCB05,#E5E7EB 50%,#005BAA);position:relative;}' +
           '.mp-spec i{position:absolute;top:50%;transform:translate(-50%,-50%);width:10px;height:10px;border-radius:50%;background:#FFFFFF;border:2px solid var(--cyan);}' +
           '.mp-lentes{width:252px;flex:none;border-left:1px solid var(--line-soft);padding-left:22px;display:flex;flex-direction:column;gap:14px;}' +
           '.mp-lentes-title{font-family:var(--f-mono);font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--cyan);}' +
@@ -230,14 +231,14 @@
         '</style>' +
         '<div class="view-kicker">MÓDULO 03 · GEORREFERENCIAMENTO</div>' +
         '<div class="view-title">Mapa de Calor Eleitoral</div>' +
-        '<div class="view-sub">Saia da visão macro estadual e entenda a dinâmica territorial com precisão cirúrgica — bairro por bairro.</div>' +
+        '<div class="view-sub">Explore a visualização geográfica do Paraná e seus detalhamentos territoriais.</div>' +
       '</div>' +
 
       '<div class="grid cols-3 reveal">' +
         '<div class="panel span-2">' +
           '<div class="panel-head">' +
             '<div class="panel-title">Mancha territorial — Paraná</div>' +
-            '<div class="panel-meta">' + F.int(D.kpis.municipios) + ' MUNICÍPIOS · ' + F.int(D.kpis.municipiosAtivos) + ' SOB COBERTURA ATIVA</div>' +
+            '<div class="panel-meta">' + F.int(D.kpis.municipios) + ' MUNICÍPIOS · ' + F.int(D.kpis.municipiosAtivos) + ' NA BASE DEMONSTRATIVA</div>' +
           '</div>' +
           '<div class="mp-lens-row">' +
             '<div class="mp-seg">' + segBtns + '</div>' +
@@ -257,7 +258,7 @@
           '</table>' +
           '<div class="mp-side-foot">' +
             '<div class="mp-lideres">' + resumoLideres() + '</div>' +
-            'ÍNDICE = leitura da lente ativa (0–100), janela móvel de 7 dias.<br>' +
+            'ÍNDICE = leitura da lente ativa (0–100), janela de 7 dias.<br>' +
             'Lente Tendência: tom claro = território em disputa.<br>' +
             'Praças-chave destacadas no mapa com contorno dourado.' +
           '</div>' +

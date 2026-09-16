@@ -104,9 +104,9 @@
           .pt-spark-name{font-family:var(--f-display);font-size:14px;font-weight:500;color:var(--text-hi);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
           .pt-spark-val{font-family:var(--f-mono);font-size:14px;font-variant-numeric:tabular-nums}
           .pt-spark-chart{height:86px}
-          .pt-note{margin-top:13px;padding:10px 14px;border:1px solid rgba(210,153,34,.25);border-left:2px solid var(--warn);background:rgba(210,153,34,.06);font-size:14px;line-height:1.5;color:var(--text);border-radius:12px}
+          .pt-note{margin-top:13px;padding:10px 14px;border:1px solid rgba(255,203,5,.25);border-left:2px solid var(--warn);background:rgba(255,203,5,.06);font-size:14px;line-height:1.5;color:var(--text);border-radius:12px}
           .pt-note b{color:var(--orange-hi);font-weight:600}
-          .pt-note.cyan{border-color:rgba(28,75,106,.25);border-left-color:var(--cyan);background:rgba(28,75,106,.05)}
+          .pt-note.cyan{border-color:rgba(0,91,170,.25);border-left-color:var(--cyan);background:rgba(0,91,170,.05)}
           .pt-note.cyan b{color:var(--cyan-hi)}
         </style>
         <div class="view-kicker">MÓDULO 04 · INTERPRETAÇÃO</div>

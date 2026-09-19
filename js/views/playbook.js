@@ -129,7 +129,7 @@
           <div class="kpi-delta up">potencial · execução integral em 15 dias</div>
         </div>
         <div class="panel">
-          <div class="kpi-value pb-mono-kpi">10 jul 2026</div>
+          <div class="kpi-value pb-mono-kpi">19 set 2026</div>
           <div class="kpi-label">Referência do cenário</div>
           <div class="kpi-delta flat">base fixa · sem atualização automática</div>
         </div>

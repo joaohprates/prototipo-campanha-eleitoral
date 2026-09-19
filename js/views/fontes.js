@@ -4,7 +4,7 @@
   var sources = [
     { kind:'oficial', label:'REFERÊNCIA OFICIAL', name:'Calendário eleitoral 2026', description:'1º turno em 4 de outubro. Eventual 2º turno em 25 de outubro. Datas consultadas no Tribunal Superior Eleitoral.', url:sourceUrl, link:'Consultar calendário no TSE', date:'15/09/2026' },
     { kind:'oficial', label:'REFERÊNCIA OFICIAL', name:'Central das Eleições 2026', description:'Página do TSE para consultar informações sobre as eleições. Referência externa; nenhum dado é importado automaticamente.', url:'https://www.tse.jus.br/eleicoes/eleicoes-2026', link:'Abrir central do TSE', date:'15/09/2026' },
-    { kind:'demo', label:'BASE DEMONSTRATIVA', name:'Indicadores e análises', description:'Nomes fictícios e séries sintéticas com referência em 10/07/2026. Não são pesquisas, amostras representativas ou previsões validadas.', url:null, date:'10/07/2026' },
+    { kind:'demo', label:'BASE DEMONSTRATIVA', name:'Indicadores e análises', description:'Nomes fictícios e séries sintéticas com referência em 19/09/2026. Não são pesquisas, amostras representativas ou previsões validadas.', url:null, date:'19/09/2026' },
     { kind:'pending', label:'SEM CONEXÃO', name:'Plataformas e modelo', description:'Não há coleta de redes sociais, API, modelo de IA ou backtesting conectado. Percentuais e sinais exibidos ilustram a interface.', url:null, date:'Não se aplica' }
   ];
   SIE.registerView('fontes', { render:function (container) {

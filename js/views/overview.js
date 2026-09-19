@@ -86,14 +86,14 @@
         <div class="panel span-2">
           <div class="panel-head">
             <div class="panel-title">Evolução do cenário</div>
-            <div class="panel-meta">90 DIAS · BASE FIXA EM 10 JUL 2026</div>
+            <div class="panel-meta">90 DIAS · BASE FIXA EM 19 SET 2026</div>
           </div>
           <div class="chart chart-lg ov-chart-proj"></div>
         </div>
         <div class="panel">
           <div class="panel-head">
             <div class="panel-title">Cenário eleitoral</div>
-            <div class="panel-meta">10 JUL 2026</div>
+            <div class="panel-meta">19 SET 2026</div>
           </div>
           ${D.candidatos.map(function (c) {
             var cls = c.delta > 0 ? 'up' : (c.delta < 0 ? 'down' : 'flat');
@@ -231,7 +231,7 @@
           return out;
         }
       },
-      xAxis: { type: 'category', boundaryGap: false, data: D.projSeries.dias, axisLabel: { interval: 14 } },
+      xAxis: { type: 'category', boundaryGap: false, data: D.projSeries.dias, axisLabel: { interval: 14, showMaxLabel: true, hideOverlap: true } },
       yAxis: { type: 'value', min: 12, max: 38, axisLabel: { formatter: '{value}%' } },
       series: [linha('hv', 2.5, true), linha('rb', 2, false), linha('mt', 1.5, false)]
     }, 'overview');

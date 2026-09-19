@@ -19,7 +19,7 @@
 
   // últimos 30 dias (rótulos dd/mm, mesma âncora fixa do protótipo)
   var dias30 = (function () {
-    var out = [], base = new Date(2026, 6, 10);
+    var out = [], base = new Date(2026, 8, 19);
     for (var i = 29; i >= 0; i--) {
       var d = new Date(base.getTime() - i * 86400000);
       out.push((d.getDate() < 10 ? '0' : '') + d.getDate() + '/' +

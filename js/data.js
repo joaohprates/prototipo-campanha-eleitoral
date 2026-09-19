@@ -21,7 +21,7 @@ window.SIE_DATA = (function () {
     return x - Math.floor(x);
   }
   var dias = [];
-  var hoje = new Date(2026, 6, 10); // 10 jul 2026 (fixo p/ protótipo)
+  var hoje = new Date(2026, 8, 19); // 19 set 2026 (fixo p/ protótipo)
   for (var i = 89; i >= 0; i--) {
     var d = new Date(hoje.getTime() - i * 86400000);
     dias.push((d.getDate() < 10 ? '0' : '') + d.getDate() + '/' + (d.getMonth() + 1 < 10 ? '0' : '') + (d.getMonth() + 1));
@@ -42,7 +42,8 @@ window.SIE_DATA = (function () {
     eventos: [
       { diaIdx: 18, label: 'Debate regional', tipo: 'neutro' },
       { diaIdx: 44, label: 'Crise: pedágio', tipo: 'alerta' },
-      { diaIdx: 71, label: 'Agenda: segurança', tipo: 'positivo' }
+      { diaIdx: 71, label: 'Agenda: segurança', tipo: 'positivo' },
+      { diaIdx: 87, label: 'Emergente: moradia', tipo: 'alerta' }
     ]
   };
   // converge o fim de cada série à projeção atual (coerência com o card "hoje")

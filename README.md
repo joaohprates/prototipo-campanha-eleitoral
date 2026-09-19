@@ -22,7 +22,7 @@ Acesse http://127.0.0.1:4173. Não exige build, instalação ou credenciais.
 
 ## Dados e referências
 
-**Os nomes, indicadores, perfis, projeções e análises dos módulos 01 a 06 são fictícios.** As séries mantêm sua referência original, **10/07/2026**; a revisão visual não atualiza nem valida esses números.
+**Os nomes, indicadores, perfis, projeções e análises dos módulos 01 a 06 são fictícios.** As séries usam a referência demonstrativa de **19/09/2026**. A atualização do cenário não representa coleta real nem validação desses números.
 
 Referências verificadas em **15/09/2026**:
 

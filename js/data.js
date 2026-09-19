@@ -8,9 +8,9 @@ window.SIE_DATA = (function () {
   // ---------- candidatos (fictícios) ----------
   var candidatos = [
     // cores = paleta categórica do espectro (AIME): dir=primary, esq=warning, centro=cinza
-    { id: 'hv', nome: 'Helena Vasconcelos', sigla: 'HV', cor: '#005BAA', proj: 35.2, delta: 0.6, espectro: 'dir' },
-    { id: 'rb', nome: 'Ricardo Bittencourt', sigla: 'RB', cor: '#FFCB05', proj: 30.5, delta: -0.4, espectro: 'esq' },
-    { id: 'mt', nome: 'Marcos Tavares', sigla: 'MT', cor: '#626C70', proj: 17.5, delta: 0.3, espectro: 'centro' },
+    { id: 'hv', nome: 'Candidato X', sigla: 'X', cor: '#005BAA', proj: 35.2, delta: 0.6, espectro: 'dir' },
+    { id: 'rb', nome: 'Candidato Y', sigla: 'Y', cor: '#FFCB05', proj: 30.5, delta: -0.4, espectro: 'esq' },
+    { id: 'mt', nome: 'Candidato Z', sigla: 'Z', cor: '#626C70', proj: 17.5, delta: 0.3, espectro: 'centro' },
     { id: 'ind', nome: 'Indecisos / Outros', sigla: '—', cor: '#C7CDD6', proj: 16.8, delta: -0.5, espectro: null }
   ];
 
@@ -81,9 +81,9 @@ window.SIE_DATA = (function () {
     { t: '15:07', txt: '<strong>Onda emergente</strong> — "moradia" cresce 48% em 72h no eixo Cascavel–Foz', nivel: 'alerta' },
     { t: '14:53', txt: 'Assinatura <strong>Perfil B</strong> amplia engajamento em pauta <strong>Educação</strong> (+24% em Londrina)', nivel: 'info' },
     { t: '14:32', txt: '<strong>RMC</strong>: tração de Segurança Pública mantém 1º lugar pelo 10º dia consecutivo', nivel: 'info' },
-    { t: '14:16', txt: 'Vídeo de <strong>RB</strong> sobre tarifa zero atinge 1,3M visualizações em 6h — pico fora do padrão', nivel: 'alerta' },
+    { t: '14:16', txt: 'Vídeo de <strong>Candidato Y</strong> sobre tarifa zero atinge 1,3M visualizações em 6h — pico fora do padrão', nivel: 'alerta' },
     { t: '13:55', txt: 'Cluster <strong>Agro Noroeste</strong> reduz volume −7% na semana; atenção à janela de reengajamento', nivel: 'warn' },
-    { t: '13:30', txt: '<strong>HV</strong> ganha tração orgânica em Maringá após agenda de mobilidade urbana', nivel: 'info' },
+    { t: '13:30', txt: '<strong>Candidato X</strong> ganha tração orgânica em Maringá após agenda de mobilidade urbana', nivel: 'info' },
     { t: '13:09', txt: 'Narrativa adversária sobre saúde regional perde força −28% após pico de sexta', nivel: 'info' }
   ];
 
@@ -91,7 +91,7 @@ window.SIE_DATA = (function () {
     '<b>PR-399</b> municípios sob cobertura contínua',
     '<span class="sig-warn">▲ 48%</span> pauta "moradia" — eixo Cascavel–Foz — fase 2',
     '<b>9,1M</b> sinais públicos processados nas últimas 24h',
-    '<span class="sig-up">▲ 0,6pp</span> projeção HV — janela de 7 dias',
+    '<span class="sig-up">▲ 0,6pp</span> projeção do Candidato X — janela de 7 dias',
     'Segurança Pública lidera tração na <b>RMC</b> — 10º dia',
     '<span class="sig-up">+24%</span> engajamento Educação — Perfil B — Londrina',
     'Modelo preditivo recalibrado — precisão <b>94,8%</b> (backtesting 2024)',
@@ -282,7 +282,7 @@ window.SIE_DATA = (function () {
       desc: 'Antecipação de ataques e respostas a movimentos adversários.',
       recs: [
         { txt: 'Pauta "pedágio" em queda de tração — acompanhar a evolução na janela atual', prio: 'critica', impacto: 'blindagem' },
-        { txt: 'Vídeo RB tarifa zero: responder com dado, não confronto (sentimento −69%)', prio: 'alta', impacto: 'contenção 36h' }
+        { txt: 'Vídeo do Candidato Y tarifa zero: responder com dado, não confronto (sentimento −69%)', prio: 'alta', impacto: 'contenção 36h' }
       ]
     },
     {

@@ -129,9 +129,9 @@ window.SIE = (function () {
 
     // Os contadores e textos repetidos refletem o mesmo cenário territorial.
     next.kpis.ondasEmergentes = next.ondas.filter(function (o) { return o.fase < 3; }).length;
-    next.feed[0].txt = '<strong>Onda emergente</strong> — "pedágio" cresce ' + next.ondas[0].cresc + '% em 72h em ' + item.name;
+    next.feed[0].txt = '<strong>Onda emergente</strong> — "' + next.ondas[0].tema + '" cresce ' + next.ondas[0].cresc + '% em 72h em ' + item.name;
     next.ticker[0] = '<b>' + next.kpis.municipiosAtivos + '</b> municípios na base analisada · ' + item.code;
-    next.ticker[1] = '<span class="sig-warn">▲ ' + next.ondas[0].cresc + '%</span> pauta "pedágio" · ' + item.name + ' · fase 2';
+    next.ticker[1] = '<span class="sig-warn">▲ ' + next.ondas[0].cresc + '%</span> pauta "' + next.ondas[0].tema + '" · ' + item.name + ' · fase 2';
     next.ticker[2] = '<b>' + fmtCompact(next.kpis.sinais24h) + '</b> sinais públicos processados nas últimas 24h';
     next.ticker[3] = '<span class="sig-up">' + fmtDelta(next.candidatos[0].delta, 'pp') + '</span> projeção HV · janela de 7 dias';
     next.ticker[6] = 'Precisão estimada <b>' + fmtPct(next.kpis.precisaoModelo, 1) + '</b> · cenário simulado';

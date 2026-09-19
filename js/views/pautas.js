@@ -62,7 +62,8 @@
     // col = cor da linha; txt = variante escura p/ texto sobre branco
     var sparkDefs = [
       { id: 'seguranca',  col: C.orange,   txt: C.orangeHi },
-      { id: 'pedagio',    col: C.orangeHi, txt: C.orangeHi },
+      { id: 'pedagio',    col: C.neg, txt: C.neg },
+      { id: 'moradia',    col: C.orange, txt: C.orangeHi },
       { id: 'educacao',   col: C.cyan,     txt: C.cyan },
       { id: 'mobilidade', col: C.accent,   txt: C.accentHover }
     ];
@@ -136,7 +137,7 @@
           </div>
           ${rankRows}
           <div class="pt-note cyan">
-            <b>◈ LEITURA TÁTICA:</b> Segurança Pública é o eixo gravitacional do debate — ${conexoesSeg} conexões diretas de co-engajamento. Pedágio é a única pauta em aceleração anômala (${sgn(pedagio.cresc7d)}% em 7 dias).
+            <b>◈ LEITURA TÁTICA:</b> Segurança Pública é o eixo gravitacional do debate — ${conexoesSeg} conexões diretas de co-engajamento. Pedágio está em queda (${sgn(pedagio.cresc7d)}% em 7 dias); Moradia ganha destaque como pauta emergente.
           </div>
         </div>
       </div>
@@ -157,7 +158,7 @@
           </div>
           <div class="pt-sparks">${sparkCells}</div>
           <div class="pt-note">
-            <b>▲ ONDA EMERGENTE:</b> "Pedágio" saiu de ${pedIni} para ${pedFim} pontos de tração em 30 dias — eixo ${D.ondas[0].regiao}. ${D.ondas[0].acao}.
+            <b>▼ PAUTA EM QUEDA:</b> "Pedágio" recuou de ${pedIni} para ${pedFim} pontos de tração em 30 dias. Variação semanal: ${sgn(pedagio.cresc7d)}%.
           </div>
         </div>
       </div>
@@ -213,7 +214,7 @@
     var links = D.pautasLinks.map(function (l) {
       var col = hexA(C.cyan, 0.26);
       if (l[0] === 'seguranca' || l[1] === 'seguranca') col = hexA(C.orange, 0.3);
-      if (l[0] === 'pedagio' || l[1] === 'pedagio') col = hexA(C.warn, 0.4);
+      if (pautaById[l[0]].emergente || pautaById[l[1]].emergente) col = hexA(C.warn, 0.4);
       return {
         source: l[0], target: l[1], value: l[2],
         lineStyle: { width: l[2] / 18, color: col, curveness: 0.12 }

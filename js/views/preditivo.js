@@ -74,7 +74,7 @@
 
       <section class="panel alert reveal" style="margin-bottom:16px">
         <div class="panel-head">
-          <div class="panel-title">Onda em fase 2 — Pedágio nas rodovias</div>
+          <div class="panel-title">Onda em fase 2 — ${o0.tema}</div>
           <div class="panel-meta">PRECISÃO NÃO VALIDADA · JANELA ${dias.length} DIAS</div>
         </div>
         <div class="pd-status">

@@ -78,7 +78,7 @@ window.SIE_DATA = (function () {
 
   // ---------- feed de sinais (visão geral + ticker) ----------
   var feed = [
-    { t: '15:07', txt: '<strong>Onda emergente</strong> — "pedágio" cresce 358% em 72h no eixo Cascavel–Foz', nivel: 'alerta' },
+    { t: '15:07', txt: '<strong>Onda emergente</strong> — "moradia" cresce 48% em 72h no eixo Cascavel–Foz', nivel: 'alerta' },
     { t: '14:53', txt: 'Assinatura <strong>Perfil B</strong> amplia engajamento em pauta <strong>Educação</strong> (+24% em Londrina)', nivel: 'info' },
     { t: '14:32', txt: '<strong>RMC</strong>: tração de Segurança Pública mantém 1º lugar pelo 10º dia consecutivo', nivel: 'info' },
     { t: '14:16', txt: 'Vídeo de <strong>RB</strong> sobre tarifa zero atinge 1,3M visualizações em 6h — pico fora do padrão', nivel: 'alerta' },
@@ -89,7 +89,7 @@ window.SIE_DATA = (function () {
 
   var ticker = [
     '<b>PR-399</b> municípios sob cobertura contínua',
-    '<span class="sig-warn">▲ 358%</span> pauta "pedágio" — eixo Cascavel–Foz — fase 2',
+    '<span class="sig-warn">▲ 48%</span> pauta "moradia" — eixo Cascavel–Foz — fase 2',
     '<b>9,1M</b> sinais públicos processados nas últimas 24h',
     '<span class="sig-up">▲ 0,6pp</span> projeção HV — janela de 7 dias',
     'Segurança Pública lidera tração na <b>RMC</b> — 10º dia',
@@ -181,7 +181,7 @@ window.SIE_DATA = (function () {
     { id: 'agro', nome: 'Agronegócio', tracao: 57, cresc7d: 4, sentimento: 34, engaj: 5 },
     { id: 'religiao', nome: 'Religião', tracao: 49, cresc7d: 2, sentimento: 43, engaj: 5.1 },
     { id: 'mobilidade', nome: 'Mobilidade Urbana', tracao: 47, cresc7d: 18, sentimento: -45, engaj: 4.8 },
-    { id: 'pedagio', nome: 'Pedágio', tracao: 40, cresc7d: 56, sentimento: -68, engaj: 8.1, emergente: true },
+    { id: 'pedagio', nome: 'Pedágio', tracao: 34, cresc7d: -18, sentimento: -68, engaj: 6.5 },
     { id: 'moradia', nome: 'Moradia', tracao: 82, cresc7d: 32, sentimento: -30, engaj: 7.8, emergente: true }
   ];
   // arestas da rede (pauta central conecta às demais; pesos = correlação de co-engajamento)
@@ -200,7 +200,8 @@ window.SIE_DATA = (function () {
   }
   var pautasSeries = {
     seguranca: serie30(82, 0.5, 6, 101),
-    pedagio: serie30(8, 1.3, 3, 113),
+    pedagio: serie30(58, -0.8, 1.2, 113),
+    moradia: serie30(48, 1.1, 1.5, 139),
     educacao: serie30(50, 0.55, 5, 127),
     mobilidade: serie30(32, 0.5, 5, 131)
   };
@@ -219,7 +220,7 @@ window.SIE_DATA = (function () {
   }
   var ondas = [
     {
-      tema: 'Pedágio nas rodovias', fase: 2, cresc: 358, regiao: 'Cascavel–Foz do Iguaçu',
+      tema: 'Moradia', fase: 2, cresc: 48, regiao: 'Cascavel–Foz do Iguaçu',
       volume: logistic(42, 29, 0.29, 98), engajInicial: 8.1,
       janela: '4–8 dias até estabelecer', acao: 'Intervenção estratégica recomendada AGORA'
     },
@@ -280,7 +281,7 @@ window.SIE_DATA = (function () {
       id: 'crises', icone: '⛨', nome: 'Gestão de Crises',
       desc: 'Antecipação de ataques e respostas a movimentos adversários.',
       recs: [
-        { txt: 'Narrativa "pedágio" será usada contra incumbente em 4–8 dias — preparar resposta', prio: 'critica', impacto: 'blindagem' },
+        { txt: 'Pauta "pedágio" em queda de tração — acompanhar a evolução na janela atual', prio: 'critica', impacto: 'blindagem' },
         { txt: 'Vídeo RB tarifa zero: responder com dado, não confronto (sentimento −69%)', prio: 'alta', impacto: 'contenção 36h' }
       ]
     },

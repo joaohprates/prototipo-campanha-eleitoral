@@ -70,9 +70,9 @@
         </div>
         <div class="panel ov-kpi">
           <div class="kpi-value"><span data-kpi="mun">0</span><span class="ov-frac">/${k.municipios} municípios</span></div>
-          <div class="kpi-label">Cobertura territorial · PR</div>
+          <div class="kpi-label">Cobertura territorial · ${meta.code || 'PR'}</div>
           <div class="bar ov-covbar"><i style="width:${cobertura}%"></i></div>
-          <div class="kpi-delta flat">${F.pct(cobertura, 1)} do estado na base analisada</div>
+          <div class="kpi-delta flat">${F.pct(cobertura, 1)} do território na base analisada</div>
         </div>
         <div class="panel ov-kpi">
           <div class="kpi-value" data-kpi="precisao">0%</div>

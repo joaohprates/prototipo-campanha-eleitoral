@@ -108,7 +108,7 @@
         <div class="panel">
           <div class="kpi-value" id="pb-kpi-total">0</div>
           <div class="kpi-label">Recomendações ativas</div>
-          <div class="kpi-delta up">▲ ${F.int(3)} novas nas últimas 24h</div>
+          <div class="kpi-delta up">▲ ${F.int(4)} novas nas últimas 24h</div>
         </div>
         <div class="panel">
           <div class="pb-prio-list">
@@ -124,9 +124,9 @@
           <div class="kpi-label">Distribuição por prioridade</div>
         </div>
         <div class="panel">
-          <div class="kpi-value" style="color:var(--pos)">+3,1pp</div>
+          <div class="kpi-value" style="color:var(--pos)">+3,3pp</div>
           <div class="kpi-label">Impacto agregado estimado</div>
-          <div class="kpi-delta up">potencial · execução integral em 14 dias</div>
+          <div class="kpi-delta up">potencial · execução integral em 15 dias</div>
         </div>
         <div class="panel">
           <div class="kpi-value pb-mono-kpi">10 jul 2026</div>

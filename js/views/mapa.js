@@ -51,7 +51,8 @@
   function valorDe(nome, lente) {
     var a = D.mapaAncoras[nome];
     if (a) return a[lente];
-    return Math.round(15 + D.prand(hashNome(nome) * 0.7919 + LENTES[lente].seed) * 70);
+    var base = Math.round(15 + D.prand(hashNome(nome) * 0.7919 + LENTES[lente].seed) * 70);
+    return Math.min(100, base + 1 + hashNome(nome + lente) % 3);
   }
 
   function dadosDe(lente) {

@@ -53,6 +53,19 @@ window.SIE = (function () {
     return h;
   }
 
+  // Fechar distribuições na precisão exibida, sem acumular erro de arredondamento.
+  function percentages(values, precision) {
+    var unit = Math.pow(10, precision), total = values.reduce(function (a, b) { return a + b; }, 0);
+    var result = values.map(function (v) { return Math.round(v / total * 100 * unit) / unit; });
+    result[result.length - 1] = Math.round((100 - result.slice(0, -1).reduce(function (a, b) { return a + b; }, 0)) * unit) / unit;
+    return result;
+  }
+
+  function alignSeries(values, target) {
+    var offset = target - values[values.length - 1];
+    return values.map(function (v, i) { return Math.round(Math.max(0, Math.min(100, v + offset * i / (values.length - 1))) * 10) / 10; });
+  }
+
   function applyTerritoryData(item) {
     if (!baseData) {
       baseData = JSON.parse(JSON.stringify(DATA));
@@ -67,7 +80,7 @@ window.SIE = (function () {
 
     next.meta = { name: item.name, code: item.code, municipios: profile.municipios, locais: profile.locais, regiao: profile.regiao, nacional: item.code === 'BR' };
     next.kpis.municipios = profile.municipios;
-    next.kpis.municipiosAtivos = profile.ativos;
+    next.kpis.municipiosAtivos = Math.min(profile.municipios, Math.round(profile.ativos * 378 / 371));
     next.kpis.sinais24h = Math.round(next.kpis.sinais24h * relativeScale);
     next.kpis.gruposAtivos = Math.round(next.kpis.gruposAtivos * relativeScale);
     next.kpis.precisaoModelo = scale(next.kpis.precisaoModelo, 0.99 + (hashCode(item.code) % 3) / 100, 88, 97);
@@ -78,14 +91,22 @@ window.SIE = (function () {
       c.proj = scale(c.proj, 0.94 + ((hashCode(item.code + c.id) % 13) / 100), 8, 58);
       c.delta = Math.round((c.delta + shift / 3 + (i - 1) * 0.2) * 10) / 10;
     });
+    var shares = percentages(next.candidatos.map(function (c) { return c.proj; }), 1);
+    next.candidatos.forEach(function (c, i) { c.proj = shares[i]; });
+    next.candidatos[3].delta = -Math.round(next.candidatos.slice(0, 3).reduce(function (sum, c) { return sum + c.delta; }, 0) * 10) / 10;
     ['hv', 'rb', 'mt'].forEach(function (id) {
-      next.projSeries[id] = next.projSeries[id].map(function (v) { return Math.round(Math.max(0, Math.min(100, v + shift))); });
+      var candidate = next.candidatos.find(function (c) { return c.id === id; });
+      next.projSeries[id] = alignSeries(next.projSeries[id], candidate.proj);
+      // A variação de sete dias usa a mesma referência da curva.
+      next.projSeries[id][next.projSeries[id].length - 8] = Math.round((candidate.proj - candidate.delta) * 10) / 10;
     });
     next.perfis.forEach(function (p, i) {
       p.tamanho = Math.round(p.tamanho * relativeScale);
       p.engajamento = scale(p.engajamento, 0.94 + i * 0.02 + (hashCode(item.code) % 4) / 100, 2, 18);
       p.coesao = Math.round(Math.max(30, Math.min(96, p.coesao + shift + i)));
       Object.keys(p.espectro).forEach(function (key) { p.espectro[key] = Math.max(1, Math.round(p.espectro[key] + shift * (key === 'centro' ? 0.2 : 0.4))); });
+      var keys = Object.keys(p.espectro), distribution = percentages(keys.map(function (key) { return p.espectro[key]; }), 0);
+      keys.forEach(function (key, j) { p.espectro[key] = distribution[j]; });
       Object.keys(p.radar).forEach(function (key) { p.radar[key] = Math.round(Math.max(20, Math.min(98, p.radar[key] + shift))); });
     });
 
@@ -103,8 +124,17 @@ window.SIE = (function () {
     next.mapaAncoras = anchors;
     next.bairrosCuritiba = next.bairrosCuritiba.map(function (b, i) { b.nome = profile.locais[i]; b.engajamento = Math.round(Math.max(20, Math.min(98, b.engajamento + shift))); b.tendencia = Math.round(Math.max(0, Math.min(100, b.tendencia + shift))); return b; });
     next.pautas.forEach(function (p, i) { p.tracao = Math.round(Math.max(20, Math.min(98, p.tracao + shift + (i % 3) * 2))); p.cresc7d = Math.round(p.cresc7d + shift / 2); p.sentimento = Math.round(Math.max(-90, Math.min(90, p.sentimento + shift * 2))); p.engaj = scale(p.engaj, 0.98 + (hashCode(item.code + p.id) % 5) / 100, 1, 15); });
-    Object.keys(next.pautasSeries).forEach(function (key) { next.pautasSeries[key] = next.pautasSeries[key].map(function (v) { return Math.round(Math.max(0, Math.min(100, v + shift))); }); });
+    Object.keys(next.pautasSeries).forEach(function (key) { next.pautasSeries[key] = alignSeries(next.pautasSeries[key], next.pautas.find(function (p) { return p.id === key; }).tracao); });
     next.ondas.forEach(function (onda, i) { onda.regiao = profile.regiao + (i === 0 ? '' : ' · leitura regional'); onda.cresc = Math.round(onda.cresc + shift * 4); });
+
+    // Os contadores e textos repetidos refletem o mesmo cenário territorial.
+    next.kpis.ondasEmergentes = next.ondas.filter(function (o) { return o.fase < 3; }).length;
+    next.feed[0].txt = '<strong>Onda emergente</strong> — "pedágio" cresce ' + next.ondas[0].cresc + '% em 72h em ' + item.name;
+    next.ticker[0] = '<b>' + next.kpis.municipiosAtivos + '</b> municípios na base analisada · ' + item.code;
+    next.ticker[1] = '<span class="sig-warn">▲ ' + next.ondas[0].cresc + '%</span> pauta "pedágio" · ' + item.name + ' · fase 2';
+    next.ticker[2] = '<b>' + fmtCompact(next.kpis.sinais24h) + '</b> sinais públicos processados nas últimas 24h';
+    next.ticker[3] = '<span class="sig-up">' + fmtDelta(next.candidatos[0].delta, 'pp') + '</span> projeção HV · janela de 7 dias';
+    next.ticker[6] = 'Precisão estimada <b>' + fmtPct(next.kpis.precisaoModelo, 1) + '</b> · cenário simulado';
 
     Object.keys(next).forEach(function (key) { DATA[key] = next[key]; });
   }

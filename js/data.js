@@ -8,10 +8,10 @@ window.SIE_DATA = (function () {
   // ---------- candidatos (fictícios) ----------
   var candidatos = [
     // cores = paleta categórica do espectro (AIME): dir=primary, esq=warning, centro=cinza
-    { id: 'hv', nome: 'Helena Vasconcelos', sigla: 'HV', cor: '#005BAA', proj: 34.6, delta: +1.8, espectro: 'dir' },
-    { id: 'rb', nome: 'Ricardo Bittencourt', sigla: 'RB', cor: '#FFCB05', proj: 30.9, delta: -0.7, espectro: 'esq' },
-    { id: 'mt', nome: 'Marcos Tavares', sigla: 'MT', cor: '#626C70', proj: 17.2, delta: +0.4, espectro: 'centro' },
-    { id: 'ind', nome: 'Indecisos / Outros', sigla: '—', cor: '#C7CDD6', proj: 17.3, delta: -1.5, espectro: null }
+    { id: 'hv', nome: 'Helena Vasconcelos', sigla: 'HV', cor: '#005BAA', proj: 35.2, delta: 0.6, espectro: 'dir' },
+    { id: 'rb', nome: 'Ricardo Bittencourt', sigla: 'RB', cor: '#FFCB05', proj: 30.5, delta: -0.4, espectro: 'esq' },
+    { id: 'mt', nome: 'Marcos Tavares', sigla: 'MT', cor: '#626C70', proj: 17.5, delta: 0.3, espectro: 'centro' },
+    { id: 'ind', nome: 'Indecisos / Outros', sigla: '—', cor: '#C7CDD6', proj: 16.8, delta: -0.5, espectro: null }
   ];
 
   // ---------- série de projeção (90 dias) ----------
@@ -36,9 +36,9 @@ window.SIE_DATA = (function () {
   }
   var projSeries = {
     dias: dias,
-    hv: serie(29.8, 0.055, 0.75, 11),
-    rb: serie(32.5, -0.017, 0.8, 23),
-    mt: serie(15.8, 0.016, 0.6, 37),
+    hv: serie(30.2, 0.055, 0.75, 11),
+    rb: serie(32.9, -0.017, 0.8, 23),
+    mt: serie(16.2, 0.016, 0.6, 37),
     eventos: [
       { diaIdx: 18, label: 'Debate regional', tipo: 'neutro' },
       { diaIdx: 44, label: 'Crise: pedágio', tipo: 'alerta' },
@@ -55,47 +55,47 @@ window.SIE_DATA = (function () {
 
   // ---------- KPIs gerais ----------
   var kpis = {
-    sinais24h: 8412930,          // sinais públicos coletados nas últimas 24h
-    sinaisDelta: +12.4,          // %
-    gruposAtivos: 1284402,       // agrupamentos comportamentais anônimos ativos
-    gruposDelta: +3.1,
+    sinais24h: 9100000,          // sinais públicos coletados nas últimas 24h
+    sinaisDelta: Math.round((9100000 / 8412930 - 1) * 1000) / 10,          // %
+    gruposAtivos: 1334494,       // agrupamentos comportamentais anônimos ativos
+    gruposDelta: Math.round((1334494 / 1284402 - 1) * 1000) / 10,
     municipios: 399,             // cobertura territorial PR
-    municipiosAtivos: 371,
-    precisaoModelo: 94.2,        // % backtesting
-    precisaoDelta: +0.8,
-    ondasEmergentes: 3,          // pautas em fase 1-2
-    alertasCrise: 1
+    municipiosAtivos: 378,
+    precisaoModelo: 94.8,        // % backtesting
+    precisaoDelta: +0.6,
+    ondasEmergentes: 2,          // pautas em fase 1-2
+    alertasCrise: 2
   };
 
   // ---------- share of voice por plataforma ----------
   var plataformas = [
-    { nome: 'Instagram', share: 34, engaj: 8.2, cresc: +6.1 },
-    { nome: 'TikTok', share: 27, engaj: 11.7, cresc: +18.4 },
-    { nome: 'YouTube', share: 16, engaj: 5.9, cresc: +2.2 },
-    { nome: 'X', share: 13, engaj: 4.1, cresc: -3.5 },
-    { nome: 'Facebook', share: 10, engaj: 3.3, cresc: -7.8 }
+    { nome: 'Instagram', share: 35, engaj: 8.5, cresc: 6.5 },
+    { nome: 'TikTok', share: 29, engaj: 12, cresc: 18.8 },
+    { nome: 'YouTube', share: 15, engaj: 6.2, cresc: 2.6 },
+    { nome: 'X', share: 12, engaj: 4.4, cresc: -3.1 },
+    { nome: 'Facebook', share: 9, engaj: 3.6, cresc: -7.4 }
   ];
 
   // ---------- feed de sinais (visão geral + ticker) ----------
   var feed = [
-    { t: '14:32', txt: '<strong>Onda emergente</strong> — "pedágio" cresce 340% em 72h no eixo Cascavel–Foz', nivel: 'alerta' },
-    { t: '14:18', txt: 'Assinatura <strong>Perfil B</strong> amplia engajamento em pauta <strong>Educação</strong> (+22% em Londrina)', nivel: 'info' },
-    { t: '13:57', txt: '<strong>RMC</strong>: tração de Segurança Pública mantém 1º lugar pelo 9º dia consecutivo', nivel: 'info' },
-    { t: '13:41', txt: 'Vídeo de <strong>RB</strong> sobre tarifa zero atinge 1,2M visualizações em 6h — pico fora do padrão', nivel: 'alerta' },
-    { t: '13:20', txt: 'Cluster <strong>Agro Noroeste</strong> reduz volume −8% na semana; atenção à janela de reengajamento', nivel: 'warn' },
-    { t: '12:55', txt: '<strong>HV</strong> ganha tração orgânica em Maringá após agenda de mobilidade urbana', nivel: 'info' },
-    { t: '12:34', txt: 'Narrativa adversária sobre saúde regional perde força −31% após pico de sexta', nivel: 'info' }
+    { t: '15:07', txt: '<strong>Onda emergente</strong> — "pedágio" cresce 358% em 72h no eixo Cascavel–Foz', nivel: 'alerta' },
+    { t: '14:53', txt: 'Assinatura <strong>Perfil B</strong> amplia engajamento em pauta <strong>Educação</strong> (+24% em Londrina)', nivel: 'info' },
+    { t: '14:32', txt: '<strong>RMC</strong>: tração de Segurança Pública mantém 1º lugar pelo 10º dia consecutivo', nivel: 'info' },
+    { t: '14:16', txt: 'Vídeo de <strong>RB</strong> sobre tarifa zero atinge 1,3M visualizações em 6h — pico fora do padrão', nivel: 'alerta' },
+    { t: '13:55', txt: 'Cluster <strong>Agro Noroeste</strong> reduz volume −7% na semana; atenção à janela de reengajamento', nivel: 'warn' },
+    { t: '13:30', txt: '<strong>HV</strong> ganha tração orgânica em Maringá após agenda de mobilidade urbana', nivel: 'info' },
+    { t: '13:09', txt: 'Narrativa adversária sobre saúde regional perde força −28% após pico de sexta', nivel: 'info' }
   ];
 
   var ticker = [
     '<b>PR-399</b> municípios sob cobertura contínua',
-    '<span class="sig-warn">▲ 340%</span> pauta "pedágio" — eixo Cascavel–Foz — fase 2',
-    '<b>8,4M</b> sinais públicos processados nas últimas 24h',
-    '<span class="sig-up">▲ 1,8pp</span> projeção HV — janela de 7 dias',
-    'Segurança Pública lidera tração na <b>RMC</b> — 9º dia',
-    '<span class="sig-up">+22%</span> engajamento Educação — Perfil B — Londrina',
-    'Modelo preditivo recalibrado — precisão <b>94,2%</b> (backtesting 2024)',
-    '<span class="sig-warn">Atenção</span> cluster Agro Noroeste −8% volume semanal'
+    '<span class="sig-warn">▲ 358%</span> pauta "pedágio" — eixo Cascavel–Foz — fase 2',
+    '<b>9,1M</b> sinais públicos processados nas últimas 24h',
+    '<span class="sig-up">▲ 0,6pp</span> projeção HV — janela de 7 dias',
+    'Segurança Pública lidera tração na <b>RMC</b> — 10º dia',
+    '<span class="sig-up">+24%</span> engajamento Educação — Perfil B — Londrina',
+    'Modelo preditivo recalibrado — precisão <b>94,8%</b> (backtesting 2024)',
+    '<span class="sig-warn">Atenção</span> cluster Agro Noroeste −7% volume semanal'
   ];
 
   // ---------- assinaturas comportamentais (página 6 do deck) ----------
@@ -103,32 +103,32 @@ window.SIE_DATA = (function () {
     {
       id: 'A', nome: 'Núcleo Agro-Tradição',
       resumo: 'Interior produtivo. Alta coesão, consumo denso de conteúdo de agronegócio e segurança.',
-      tamanho: 486000, engajamento: 8.7, coesao: 91,
-      espectro: { esquerda: 8, centro: 15, direita: 77 },
+      tamanho: 473850, engajamento: 9, coesao: 94,
+      espectro: { esquerda: 9, centro: 16, direita: 75 },
       temas: ['Segurança', 'Agronegócio', 'Economia', 'Religião'],
-      radar: { Economia: 82, 'Segurança': 94, 'Saúde': 41, 'Educação': 33, Emprego: 58, Infraestrutura: 71 },
+      radar: { Economia: 81, 'Segurança': 96, 'Saúde': 44, 'Educação': 32, Emprego: 60, Infraestrutura: 74 },
       regioes: ['Noroeste', 'Campos Gerais', 'Centro-Sul'],
-      tendencia: +2.1
+      tendencia: 1.9
     },
     {
       id: 'B', nome: 'Jovem Urbano-Digital',
       resumo: 'Capitais e polos universitários. Volátil, alto compartilhamento, sensível a pautas de educação e emprego.',
-      tamanho: 743000, engajamento: 11.9, coesao: 62,
-      espectro: { esquerda: 63, centro: 25, direita: 12 },
+      tamanho: 766776, engajamento: 12.3, coesao: 61,
+      espectro: { esquerda: 61, centro: 26, direita: 13 },
       temas: ['Educação', 'Emprego', 'Mobilidade', 'Cultura'],
-      radar: { Economia: 55, 'Segurança': 38, 'Saúde': 62, 'Educação': 92, Emprego: 88, Infraestrutura: 47 },
+      radar: { Economia: 57, 'Segurança': 41, 'Saúde': 61, 'Educação': 94, Emprego: 91, Infraestrutura: 46 },
       regioes: ['Curitiba', 'Londrina', 'Maringá'],
-      tendencia: +4.6
+      tendencia: 4.9
     },
     {
       id: 'C', nome: 'Centro Pragmático',
       resumo: 'Classe média urbana e periferia consolidada. Decide tarde, responde a economia e saúde no bolso.',
-      tamanho: 912000, engajamento: 5.4, coesao: 48,
-      espectro: { esquerda: 26, centro: 51, direita: 23 },
+      tamanho: 947568, engajamento: 5.2, coesao: 50,
+      espectro: { esquerda: 27, centro: 49, direita: 24 },
       temas: ['Economia', 'Saúde', 'Emprego', 'Serviços'],
-      radar: { Economia: 89, 'Segurança': 64, 'Saúde': 84, 'Educação': 52, Emprego: 76, Infraestrutura: 55 },
+      radar: { Economia: 92, 'Segurança': 63, 'Saúde': 86, 'Educação': 55, Emprego: 75, Infraestrutura: 57 },
       regioes: ['RMC', 'Ponta Grossa', 'Cascavel'],
-      tendencia: -1.2
+      tendencia: -0.8
     }
   ];
 
@@ -141,56 +141,56 @@ window.SIE_DATA = (function () {
     { id: 'influencia', label: 'Evolução temporal das manchas de influência' }
   ];
   // âncoras regionais: valores conhecidos p/ cidades-chave (0-100 nas 4 lentes)
-  // tendencia: 0 = polo esquerda(laranja), 100 = polo direita(ciano)
+  // tendencia: -1 = polo esquerda(laranja), 100 = polo direita(ciano)
   var mapaAncoras = {
-    'Curitiba':          { tendencia: 58, engajamento: 92, crescimento: 64, influencia: 88, lider: 'hv' },
-    'Londrina':          { tendencia: 44, engajamento: 78, crescimento: 71, influencia: 74, lider: 'rb' },
-    'Maringá':           { tendencia: 67, engajamento: 74, crescimento: 58, influencia: 70, lider: 'hv' },
-    'Ponta Grossa':      { tendencia: 52, engajamento: 61, crescimento: 44, influencia: 58, lider: 'mt' },
-    'Cascavel':          { tendencia: 71, engajamento: 83, crescimento: 87, influencia: 66, lider: 'hv' },
-    'Foz do Iguaçu':     { tendencia: 49, engajamento: 79, crescimento: 90, influencia: 61, lider: 'rb' },
-    'São José dos Pinhais': { tendencia: 55, engajamento: 66, crescimento: 51, influencia: 63, lider: 'hv' },
-    'Colombo':           { tendencia: 47, engajamento: 58, crescimento: 42, influencia: 55, lider: 'rb' },
-    'Guarapuava':        { tendencia: 63, engajamento: 54, crescimento: 39, influencia: 48, lider: 'hv' },
-    'Paranaguá':         { tendencia: 41, engajamento: 62, crescimento: 47, influencia: 52, lider: 'rb' },
-    'Toledo':            { tendencia: 74, engajamento: 69, crescimento: 61, influencia: 57, lider: 'hv' },
-    'Apucarana':         { tendencia: 50, engajamento: 57, crescimento: 45, influencia: 49, lider: 'mt' }
+    'Curitiba':          { tendencia: 60, engajamento: 95, crescimento: 63, influencia: 90, lider: 'hv' },
+    'Londrina':          { tendencia: 47, engajamento: 77, crescimento: 73, influencia: 77, lider: 'rb' },
+    'Maringá':           { tendencia: 66, engajamento: 76, crescimento: 61, influencia: 69, lider: 'hv' },
+    'Ponta Grossa':      { tendencia: 54, engajamento: 64, crescimento: 43, influencia: 60, lider: 'mt' },
+    'Cascavel':          { tendencia: 74, engajamento: 82, crescimento: 89, influencia: 69, lider: 'hv' },
+    'Foz do Iguaçu':     { tendencia: 48, engajamento: 81, crescimento: 93, influencia: 60, lider: 'rb' },
+    'São José dos Pinhais': { tendencia: 57, engajamento: 69, crescimento: 50, influencia: 65, lider: 'hv' },
+    'Colombo':           { tendencia: 50, engajamento: 57, crescimento: 44, influencia: 58, lider: 'rb' },
+    'Guarapuava':        { tendencia: 62, engajamento: 56, crescimento: 42, influencia: 47, lider: 'hv' },
+    'Paranaguá':         { tendencia: 43, engajamento: 65, crescimento: 46, influencia: 54, lider: 'rb' },
+    'Toledo':            { tendencia: 77, engajamento: 68, crescimento: 63, influencia: 60, lider: 'hv' },
+    'Apucarana':         { tendencia: 49, engajamento: 59, crescimento: 48, influencia: 48, lider: 'mt' }
   };
   // bairros de Curitiba (drill-down demonstrativo "bairro por bairro")
   var bairrosCuritiba = [
-    { nome: 'Centro', tendencia: 43, engajamento: 88, cresc: +12 },
-    { nome: 'Água Verde', tendencia: 66, engajamento: 71, cresc: +4 },
-    { nome: 'Boqueirão', tendencia: 51, engajamento: 64, cresc: +9 },
-    { nome: 'Cajuru', tendencia: 39, engajamento: 69, cresc: +15 },
-    { nome: 'CIC', tendencia: 35, engajamento: 74, cresc: +21 },
-    { nome: 'Santa Felicidade', tendencia: 72, engajamento: 58, cresc: -3 },
-    { nome: 'Portão', tendencia: 57, engajamento: 62, cresc: +6 },
-    { nome: 'Sítio Cercado', tendencia: 38, engajamento: 77, cresc: +18 },
-    { nome: 'Batel', tendencia: 78, engajamento: 66, cresc: +2 },
-    { nome: 'Tatuquara', tendencia: 33, engajamento: 71, cresc: +24 }
+    { nome: 'Centro', tendencia: 45, engajamento: 91, cresc: 11 },
+    { nome: 'Água Verde', tendencia: 68, engajamento: 74, cresc: 3 },
+    { nome: 'Boqueirão', tendencia: 53, engajamento: 67, cresc: 8 },
+    { nome: 'Cajuru', tendencia: 41, engajamento: 72, cresc: 14 },
+    { nome: 'CIC', tendencia: 37, engajamento: 77, cresc: 20 },
+    { nome: 'Santa Felicidade', tendencia: 74, engajamento: 61, cresc: -4 },
+    { nome: 'Portão', tendencia: 59, engajamento: 65, cresc: 5 },
+    { nome: 'Sítio Cercado', tendencia: 40, engajamento: 80, cresc: 17 },
+    { nome: 'Batel', tendencia: 80, engajamento: 69, cresc: 1 },
+    { nome: 'Tatuquara', tendencia: 35, engajamento: 74, cresc: 23 }
   ];
 
   // ---------- radiografia de pautas (página 8) ----------
   var pautas = [
-    { id: 'seguranca', nome: 'Segurança Pública', tracao: 94, cresc7d: +8, sentimento: -62, engaj: 9.1, central: true,
+    { id: 'seguranca', nome: 'Segurança Pública', tracao: 96, cresc7d: 11, sentimento: -63, engaj: 9.4, central: true,
       nota: 'Alta tração em áreas metropolitanas' },
-    { id: 'economia', nome: 'Economia', tracao: 81, cresc7d: +3, sentimento: -41, engaj: 6.8 },
-    { id: 'saude', nome: 'Saúde', tracao: 76, cresc7d: +5, sentimento: -55, engaj: 7.2 },
-    { id: 'emprego', nome: 'Emprego', tracao: 72, cresc7d: +6, sentimento: -38, engaj: 6.1 },
-    { id: 'educacao', nome: 'Educação', tracao: 64, cresc7d: +11, sentimento: -22, engaj: 5.9 },
-    { id: 'agro', nome: 'Agronegócio', tracao: 58, cresc7d: +2, sentimento: +31, engaj: 5.2 },
-    { id: 'religiao', nome: 'Religião', tracao: 47, cresc7d: -1, sentimento: +44, engaj: 4.8 },
-    { id: 'mobilidade', nome: 'Mobilidade Urbana', tracao: 44, cresc7d: +19, sentimento: -47, engaj: 4.4 },
-    { id: 'pedagio', nome: 'Pedágio', tracao: 41, cresc7d: +54, sentimento: -71, engaj: 8.3, emergente: true },
-    { id: 'moradia', nome: 'Moradia', tracao: 33, cresc7d: +4, sentimento: -29, engaj: 3.1 }
+    { id: 'economia', nome: 'Economia', tracao: 84, cresc7d: 2, sentimento: -39, engaj: 7.2 },
+    { id: 'saude', nome: 'Saúde', tracao: 75, cresc7d: 7, sentimento: -52, engaj: 7 },
+    { id: 'emprego', nome: 'Emprego', tracao: 74, cresc7d: 9, sentimento: -39, engaj: 6.4 },
+    { id: 'educacao', nome: 'Educação', tracao: 67, cresc7d: 10, sentimento: -20, engaj: 6.3 },
+    { id: 'agro', nome: 'Agronegócio', tracao: 57, cresc7d: 4, sentimento: 34, engaj: 5 },
+    { id: 'religiao', nome: 'Religião', tracao: 49, cresc7d: 2, sentimento: 43, engaj: 5.1 },
+    { id: 'mobilidade', nome: 'Mobilidade Urbana', tracao: 47, cresc7d: 18, sentimento: -45, engaj: 4.8 },
+    { id: 'pedagio', nome: 'Pedágio', tracao: 40, cresc7d: 56, sentimento: -68, engaj: 8.1, emergente: true },
+    { id: 'moradia', nome: 'Moradia', tracao: 35, cresc7d: 7, sentimento: -30, engaj: 3.4 }
   ];
   // arestas da rede (pauta central conecta às demais; pesos = correlação de co-engajamento)
   var pautasLinks = [
-    ['seguranca', 'economia', 62], ['seguranca', 'saude', 48], ['seguranca', 'emprego', 55],
-    ['seguranca', 'educacao', 38], ['seguranca', 'mobilidade', 33], ['seguranca', 'religiao', 41],
-    ['economia', 'emprego', 77], ['economia', 'agro', 58], ['economia', 'pedagio', 44],
-    ['saude', 'moradia', 29], ['educacao', 'emprego', 51], ['mobilidade', 'pedagio', 63],
-    ['agro', 'religiao', 36], ['saude', 'educacao', 34]
+    ['seguranca', 'economia', 64], ['seguranca', 'saude', 50], ['seguranca', 'emprego', 57],
+    ['seguranca', 'educacao', 40], ['seguranca', 'mobilidade', 35], ['seguranca', 'religiao', 43],
+    ['economia', 'emprego', 79], ['economia', 'agro', 60], ['economia', 'pedagio', 46],
+    ['saude', 'moradia', 31], ['educacao', 'emprego', 53], ['mobilidade', 'pedagio', 65],
+    ['agro', 'religiao', 38], ['saude', 'educacao', 36]
   ];
   // séries de tração 30d por pauta-chave (sparklines)
   function serie30(base, drift, vol, seed) {
@@ -199,10 +199,10 @@ window.SIE_DATA = (function () {
     return out;
   }
   var pautasSeries = {
-    seguranca: serie30(80, 0.5, 6, 101),
-    pedagio: serie30(6, 1.3, 3, 113),
-    educacao: serie30(48, 0.55, 5, 127),
-    mobilidade: serie30(30, 0.5, 5, 131)
+    seguranca: serie30(82, 0.5, 6, 101),
+    pedagio: serie30(8, 1.3, 3, 113),
+    educacao: serie30(50, 0.55, 5, 127),
+    mobilidade: serie30(32, 0.5, 5, 131)
   };
 
   // ---------- monitor preditivo (página 9) ----------
@@ -219,18 +219,18 @@ window.SIE_DATA = (function () {
   }
   var ondas = [
     {
-      tema: 'Pedágio nas rodovias', fase: 2, cresc: +340, regiao: 'Cascavel–Foz do Iguaçu',
-      volume: logistic(42, 30, 0.28, 100), engajInicial: 8.3,
-      janela: '5–9 dias até estabelecer', acao: 'Intervenção estratégica recomendada AGORA'
+      tema: 'Pedágio nas rodovias', fase: 2, cresc: 358, regiao: 'Cascavel–Foz do Iguaçu',
+      volume: logistic(42, 29, 0.29, 98), engajInicial: 8.1,
+      janela: '4–8 dias até estabelecer', acao: 'Intervenção estratégica recomendada AGORA'
     },
     {
-      tema: 'Segurança nas escolas', fase: 1, cresc: +85, regiao: 'RMC',
-      volume: logistic(42, 44, 0.22, 60), engajInicial: 6.9,
-      janela: '12–18 dias até ponto de intervenção', acao: 'Monitorar — sinais espontâneos de alto engajamento'
+      tema: 'Segurança nas escolas', fase: 1, cresc: 87, regiao: 'RMC',
+      volume: logistic(42, 43, 0.23, 63), engajInicial: 7.3,
+      janela: '11–17 dias até ponto de intervenção', acao: 'Monitorar — sinais espontâneos de alto engajamento'
     },
     {
-      tema: 'Tarifa de transporte', fase: 3, cresc: +12, regiao: 'Curitiba / Londrina',
-      volume: logistic(42, 14, 0.35, 88), engajInicial: 4.2,
+      tema: 'Tarifa de transporte', fase: 3, cresc: 11, regiao: 'Curitiba / Londrina',
+      volume: logistic(42, 15, 0.34, 90), engajInicial: 4.5,
       janela: 'Onda estabelecida — pesquisas tradicionais captando agora', acao: 'Posicionamento reativo — custo de entrada alto'
     }
   ];
@@ -246,25 +246,25 @@ window.SIE_DATA = (function () {
       id: 'territorio', icone: '◈', nome: 'Estratégia Territorial',
       desc: 'Escolha matemática de bairros e municípios prioritários.',
       recs: [
-        { txt: 'Priorizar corredor Cascavel → Toledo: crescimento 87 vs presença atual 41', prio: 'alta', impacto: '+1,4pp projetado' },
-        { txt: 'Reforço em Tatuquara e CIC (Curitiba): engajamento alto, cobertura baixa', prio: 'alta', impacto: '+18k alcance/dia' },
-        { txt: 'Reduzir investimento em Batel: saturação 94%, retorno marginal', prio: 'media', impacto: '−R$ 32k/sem realocáveis' }
+        { txt: 'Priorizar corredor Cascavel → Toledo: crescimento 89 vs presença atual 43', prio: 'alta', impacto: '+1,5pp projetado' },
+        { txt: 'Reforço em Tatuquara e CIC (Curitiba): engajamento alto, cobertura baixa', prio: 'alta', impacto: '+19k alcance/dia' },
+        { txt: 'Reduzir investimento em Batel: saturação 93%, retorno marginal', prio: 'media', impacto: '−R$ 34k/sem realocáveis' }
       ]
     },
     {
       id: 'recursos', icone: '▤', nome: 'Alocação de Recursos',
       desc: 'Distribuição de verba eleitoral onde a conversão é maior.',
       recs: [
-        { txt: 'Realocar 22% da verba de Facebook → TikTok (conversão 3,1x no Perfil B)', prio: 'alta', impacto: 'CPE −38%' },
-        { txt: 'Janela de mídia 19h–22h no interior: engajamento 2,4x vs média', prio: 'media', impacto: '+9% retenção' }
+        { txt: 'Realocar 23% da verba de Facebook → TikTok (conversão 3,2x no Perfil B)', prio: 'alta', impacto: 'CPE −36%' },
+        { txt: 'Janela de mídia 18h–21h no interior: engajamento 2,5x vs média', prio: 'media', impacto: '+10% retenção' }
       ]
     },
     {
       id: 'discurso', icone: '◎', nome: 'Construção de Discurso',
       desc: 'Adequação cirúrgica da mensagem para cada demografia.',
       recs: [
-        { txt: 'Perfil A: enquadrar segurança via "proteção da propriedade rural"', prio: 'alta', impacto: 'afinidade +31%' },
-        { txt: 'Perfil B: educação → "primeiro emprego"; evitar enquadramento fiscal', prio: 'alta', impacto: 'rejeição −12%' },
+        { txt: 'Perfil A: enquadrar segurança via "proteção da propriedade rural"', prio: 'alta', impacto: 'afinidade +29%' },
+        { txt: 'Perfil B: educação → "primeiro emprego"; evitar enquadramento fiscal', prio: 'alta', impacto: 'rejeição −13%' },
         { txt: 'Perfil C: bolso primeiro — saúde e tarifa antes de pauta identitária', prio: 'media', impacto: 'considerar 2º turno' }
       ]
     },
@@ -273,23 +273,23 @@ window.SIE_DATA = (function () {
       desc: 'Definição de projetos baseados no que a população realmente demanda.',
       recs: [
         { txt: 'Plano de segurança escolar RMC antecipa onda fase 1 detectada', prio: 'alta', impacto: 'pioneirismo' },
-        { txt: 'Mobilidade em Londrina: demanda reprimida 3º mês consecutivo', prio: 'media', impacto: 'espaço aberto' }
+        { txt: 'Mobilidade em Londrina: demanda reprimida 4º mês consecutivo', prio: 'media', impacto: 'espaço aberto' }
       ]
     },
     {
       id: 'crises', icone: '⛨', nome: 'Gestão de Crises',
       desc: 'Antecipação de ataques e respostas a movimentos adversários.',
       recs: [
-        { txt: 'Narrativa "pedágio" será usada contra incumbente em 5–9 dias — preparar resposta', prio: 'critica', impacto: 'blindagem' },
-        { txt: 'Vídeo RB tarifa zero: responder com dado, não confronto (sentimento −71%)', prio: 'alta', impacto: 'contenção 48h' }
+        { txt: 'Narrativa "pedágio" será usada contra incumbente em 4–8 dias — preparar resposta', prio: 'critica', impacto: 'blindagem' },
+        { txt: 'Vídeo RB tarifa zero: responder com dado, não confronto (sentimento −69%)', prio: 'alta', impacto: 'contenção 36h' }
       ]
     },
     {
       id: 'oportunidades', icone: '◉', nome: 'Mapeamento de Oportunidades',
       desc: 'Identificação de vácuos de liderança em nichos específicos.',
       recs: [
-        { txt: 'Vácuo de liderança em "agro jovem" (18–29 interior): nenhum candidato ocupa', prio: 'alta', impacto: '~120k grupo' },
-        { txt: 'Pauta ambiental no litoral sem dono político há 40 dias', prio: 'media', impacto: 'nicho 34k' }
+        { txt: 'Vácuo de liderança em "agro jovem" (18–29 interior): nenhum candidato ocupa', prio: 'alta', impacto: '~126k grupo' },
+        { txt: 'Pauta ambiental no litoral sem dono político há 43 dias', prio: 'media', impacto: 'nicho 36k' }
       ]
     }
   ];

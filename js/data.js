@@ -10,7 +10,7 @@ window.SIE_DATA = (function () {
     // cores = paleta categórica do espectro (AIME): dir=primary, esq=warning, centro=cinza
     { id: 'hv', nome: 'Candidato X', sigla: 'X', cor: '#005BAA', proj: 35.2, delta: 0.6, espectro: 'dir' },
     { id: 'rb', nome: 'Candidato Y', sigla: 'Y', cor: '#FFCB05', proj: 30.5, delta: -0.4, espectro: 'esq' },
-    { id: 'mt', nome: 'Candidato Z', sigla: 'Z', cor: '#626C70', proj: 17.5, delta: 0.3, espectro: 'centro' },
+    { id: 'mt', nome: 'Candidato Z', sigla: 'Z', cor: '#626C70', proj: 17.5, delta: 0.3, espectro: 'dir' },
     { id: 'ind', nome: 'Indecisos / Outros', sigla: '—', cor: '#C7CDD6', proj: 16.8, delta: -0.5, espectro: null }
   ];
 

@@ -182,7 +182,7 @@ window.SIE_DATA = (function () {
     { id: 'religiao', nome: 'Religião', tracao: 49, cresc7d: 2, sentimento: 43, engaj: 5.1 },
     { id: 'mobilidade', nome: 'Mobilidade Urbana', tracao: 47, cresc7d: 18, sentimento: -45, engaj: 4.8 },
     { id: 'pedagio', nome: 'Pedágio', tracao: 40, cresc7d: 56, sentimento: -68, engaj: 8.1, emergente: true },
-    { id: 'moradia', nome: 'Moradia', tracao: 35, cresc7d: 7, sentimento: -30, engaj: 3.4 }
+    { id: 'moradia', nome: 'Moradia', tracao: 82, cresc7d: 32, sentimento: -30, engaj: 7.8, emergente: true }
   ];
   // arestas da rede (pauta central conecta às demais; pesos = correlação de co-engajamento)
   var pautasLinks = [
